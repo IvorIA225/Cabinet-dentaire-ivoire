@@ -2,31 +2,38 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cabinet Dentaire Ivoire · Chirurgien-dentiste à Bouaké, face au Grand Bazar</title>
-  <meta name="description" content="Cabinet Dentaire Ivoire à Bouaké (Dr Kouakou Hilaire). Urgences dentaires, soins sans appréhension, implants, orthodontie et détartrage face au Grand Bazar, Immeuble Librairie de France 2e étage.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231352B8'/><path d='M10.5 9.5c2.2-1.2 4.1-.4 5.5.8 1.4-1.2 3.3-2 5.5-.8 2.4 1.3 2.9 4.7 1.8 7.6-1 2.6-2 6.4-3.3 6.4-1.2 0-1.6-3.3-2.6-4.4-.4-.5-.9-.7-1.4-.7s-1 .2-1.4.7c-1 1.1-1.4 4.4-2.6 4.4-1.3 0-2.3-3.8-3.3-6.4-1.1-2.9-.6-6.3 1.8-7.6z' fill='%23F8FAFF'/></svg>">
+  <meta name="description" content="Au 2e étage de l'Immeuble Librairie de France, juste en face du Grand Bazar à Bouaké, le Dr Kouakou Hilaire vous reçoit dans le calme pour vos soins dentaires, urgences, prothèses et esthétique du sourire.">
+  <meta name="theme-color" content="#faf6f0">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
+  <!-- Deux familles typographiques : Cormorant Garamond (voix éditoriale) + Plus Jakarta Sans (clarté de lecture) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Outfit:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Préchargement des plans du premier écran pour éviter tout flash partiel -->
+  <link rel="preload" as="image" href="assets/v2-hero-bg.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/v2-hero-portrait-arch.webp" type="image/webp">
 
   <link rel="stylesheet" href="scrollcraft.css">
   <link rel="stylesheet" href="styles.css">
 
+  <!-- Données structurées SEO local vérifiées (Bouaké) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Dentist",
     "name": "Cabinet Dentaire Ivoire",
-    "description": "Centre de soins bucco-dentaires à Bouaké dirigé par le Dr Kouakou Hilaire : urgences, soins conservateurs, détartrage, implants, prothèses et orthodontie.",
-    "telephone": ["+2250707171117", "+2252731634953"],
+    "description": "Cabinet dentaire du Dr Kouakou Hilaire à Bouaké, face au Grand Bazar. Soins conservateurs, urgences dentaires, détartrage, prothèses céramiques, implants et orthodontie.",
+    "telephone": "+2250707171117",
     "email": "cabinetdentaireivoire@yahoo.fr",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Avenue Félix Houphouët-Boigny, face au Grand Bazar, Immeuble Librairie de France, 2e étage",
+      "streetAddress": "Avenue Félix Houphouët-Boigny, face au Grand Bazar, Immeuble Librairie de France (2e étage), 01 BP 888",
       "addressLocality": "Bouaké",
-      "postalCode": "01 BP 888 Bouaké 01",
+      "postalCode": "01",
       "addressCountry": "CI"
     },
     "geo": {
@@ -52,100 +59,88 @@
   </script>
 </head>
 <body>
-
   <a class="skip-link" href="#main-content">Aller au contenu principal</a>
-  <span data-sc-progress aria-hidden="true"></span>
+
+  <!-- Barre de progression discrète pilotée par le moteur -->
+  <div data-sc-progress aria-hidden="true"></div>
   <div class="sc-grain" aria-hidden="true"></div>
 
   <!-- ======================================================================
-       PERSISTENT CLINICAL STATUS & WAYPOINT CHROME
+       EN-TÊTE ÉDITORIAL FLOTTANT EN DEUX CAPSULES (Zéro barre pleine largeur)
        ==================================================================== -->
-  <header class="clinic-bar">
-    <div class="clinic-bar__inner">
-      <a class="brand-mark" href="#top" aria-label="Cabinet Dentaire Ivoire Bouaké, retour en haut">
-        <span class="brand-mark__icon" aria-hidden="true">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
-            <path d="M7.2 5.4c2-.9 3.5-.1 4.8 1.1 1.3-1.2 2.8-2 4.8-1.1 2.2 1 2.7 4.1 1.7 6.8-.9 2.4-1.8 6.3-3.1 6.3-1.1 0-1.5-3.1-2.3-4.1-.3-.4-.7-.6-1.1-.6s-.8.2-1.1.6c-.8 1-1.2 4.1-2.3 4.1-1.3 0-2.2-3.9-3.1-6.3-1-2.7-.5-5.8 1.7-6.8Z" fill="currentColor"/>
-          </svg>
-        </span>
-        <span class="brand-mark__text">
-          <span class="brand-mark__name">Cabinet Dentaire Ivoire</span>
-          <span class="brand-mark__city">Bouaké · Face au Grand Bazar</span>
-        </span>
-      </a>
+  <header class="masthead">
+    <a class="masthead__brand" href="#top" aria-label="Cabinet Dentaire Ivoire Bouaké, retour en haut">
+      <span class="masthead__name">Cabinet Dentaire <em>Ivoire</em></span>
+      <span class="masthead__place">Bouaké · Face au Grand Bazar</span>
+    </a>
 
-      <nav class="clinic-bar__nav" aria-label="Navigation principale">
-        <a class="clinic-bar__link" href="#approche">Approche</a>
-        <a class="clinic-bar__link" href="#scanner-act">Scanner 3D</a>
-        <a class="clinic-bar__link" href="#soins-act">Soins</a>
-        <a class="clinic-bar__link" href="#acces-bouake">Accès</a>
+    <div class="masthead__capsule">
+      <nav class="masthead__nav" aria-label="Navigation principale">
+        <a class="masthead__link" href="#maison">La Maison</a>
+        <a class="masthead__link" href="#savoir-faire">Savoir-faire</a>
+        <a class="masthead__link" href="#soins">Soins</a>
+        <a class="masthead__link" href="#eclat">Éclat</a>
       </nav>
-
-      <div class="clinic-bar__right">
-        <div class="clinic-hours-badge" id="clinic-hours-badge" data-open="true">
-          <span class="clinic-hours-badge__dot" aria-hidden="true"></span>
-          <span id="clinic-hours-text">Lun au Ven 07h30 à 15h00 · Sam 07h30 à 12h00</span>
-        </div>
-        <a class="btn-primary btn-primary--sm" href="#rendez-vous">Prendre rendez-vous</a>
-      </div>
+      <a class="btn-champagne btn-champagne--sm" href="#rendez-vous">Prendre rendez-vous</a>
     </div>
   </header>
 
   <main id="main-content">
 
     <!-- ====================================================================
-         ACT 1 · SERENE ARRIVAL: 5-PLANE ARCHITECTURAL & 3D ENAMEL HERO
-         Device: pin + parallax + kinetic + real-time WebGL 3D crown assembly
+         ACTE 1 · L'ÉMOTION DU SOURIRE : HÉROS MULTI-PLANS EN LUMIÈRE DORÉE
+         Dispositifs : pin + parallax (5 plans) + kinetic="lines"
          ================================================================== -->
-    <section id="hero-act" data-sc-act="pin" data-sc-span="2.3" data-sc-dwell="0.28" data-sc-drift="#f4f6f9">
+    <section id="hero-act" data-sc-act="pin" data-sc-span="2.4" data-sc-dwell="0.28" data-sc-drift="#faf6f0">
       <div data-sc-stage class="hero-stage" id="top">
 
-        <!-- Plane 1: Far sunlit architectural plate -->
-        <div class="hero-plane hero-plane--bg" data-sc-parallax="-1.35" aria-hidden="true">
-          <img src="assets/01-hero-plate.webp" width="1792" height="1008" alt="">
+        <!-- Plan 1 : Architecture lointaine en travertin blond et lin ensoleillé -->
+        <div class="hero-plane hero-plane--bg" data-sc-parallax="-1.25" aria-hidden="true">
+          <img src="assets/v2-hero-bg.webp" width="1920" height="1080" alt="">
         </div>
 
-        <!-- Plane 2: Midground morning light & architectural frame -->
-        <div class="hero-plane hero-plane--mid" data-sc-parallax="-0.6" aria-hidden="true">
-          <div class="hero-mid-frame"></div>
+        <!-- Plan 2 : Halo solaire matinal -->
+        <div class="hero-plane hero-plane--sun" data-sc-parallax="-0.72" aria-hidden="true"></div>
+
+        <!-- Plan 3 : Typographie monumentale en profondeur occultée derrière l'arche portrait -->
+        <div class="hero-depth-mark" data-sc-parallax="-0.45" aria-hidden="true">Ivoire</div>
+
+        <!-- Voile frère protégeant la lecture de la colonne gauche (jamais enfant de data-sc-cue) -->
+        <div class="hero-scrim" aria-hidden="true"></div>
+
+        <!-- Plan 4 : Portrait sourire radieux dans son arche biseautée en travertin et bronze (RGBA véritable) -->
+        <div class="hero-portrait-wrap" id="hero-portrait-stage" data-sc-parallax="-0.16">
+          <img
+            class="hero-portrait-img"
+            src="assets/v2-hero-portrait-arch.webp"
+            width="1000"
+            height="1320"
+            alt="Portrait lumineux d'une patiente au sourire naturel et apaisé au Cabinet Dentaire Ivoire">
         </div>
 
-        <!-- Monumental architectural depth mark behind 3D subject -->
-        <div class="hero-depth-word" data-sc-parallax="-0.35" aria-hidden="true">IVOIRE</div>
-
-        <!-- Sibling Scrim Plate protecting copy legibility across all frames -->
-        <div class="hero-copy-scrim" aria-hidden="true"></div>
-
-        <!-- Plane 4: Focal 3D Porcelain-Ivory Crown & Helical Titanium Implant -->
-        <div class="hero-3d-wrap" id="hero-3d-stage" data-sc-parallax="-0.2">
-          <div class="hero-contact-shadow" aria-hidden="true"></div>
-          <img class="webgl-poster" src="assets/hero-3d-poster.webp" width="900" height="900" alt="Modèle 3D d'une couronne dentaire en céramique ivoire et de son ancrage en titane">
-          <canvas id="hero-3d-canvas" aria-hidden="true"></canvas>
+        <!-- Plan 5 : Premier plan flouté en verre champagne et colonne de travertin (RGBA véritable) -->
+        <div class="hero-plane hero-plane--fg" data-sc-parallax="0.82" aria-hidden="true">
+          <img src="assets/v2-hero-fg-prism.webp" width="640" height="1280" alt="">
         </div>
 
-        <!-- Plane 5: Near foreground genuine alpha travertine architectural edge -->
-        <div class="hero-plane hero-plane--fg" data-sc-parallax="0.72" aria-hidden="true">
-          <img src="assets/hero-fg-arch.webp" width="520" height="1200" alt="">
-        </div>
-
-        <!-- Section floor fade hiding layer clip lines -->
+        <!-- Fondu d'assise en pied de scène -->
         <div class="hero-floor-fade" aria-hidden="true"></div>
 
-        <!-- Beat 1 Copy (Greet form: immediately readable at scrollY = 0) -->
-        <div class="hero-copy-block" data-sc-cue="0 0.44 0 0.16">
-          <h1 class="sc-display hero-title" data-sc-kinetic="lines">Soigner vos dents à Bouaké, dans le calme.</h1>
-          <p class="hero-sub">Face au Grand Bazar, le Dr Kouakou Hilaire vous reçoit avec douceur pour vos urgences et vos soins dentaires.</p>
-          <div class="hero-actions">
-            <a class="btn-primary btn-primary--lg" href="#rendez-vous">Prendre rendez-vous</a>
-            <a class="btn-secondary" href="tel:+2250707171117">Urgence : 07 07 17 11 17</a>
+        <!-- Temps 1 : Accueil immédiatement lisible à l'ouverture (plage 0..0.44 sans chevauchement) -->
+        <div class="hero-copy" data-sc-cue="0 0.44 0 0.16">
+          <h1 class="sc-display hero-title" data-sc-kinetic="lines">Retrouvez le plaisir de <em>sourire</em>, en toute sérénité.</h1>
+          <p class="hero-lead">À Bouaké, juste en face du Grand Bazar, le Dr Kouakou Hilaire vous accueille avec douceur pour soulager vos urgences, soigner vos dents et sublimer votre sourire.</p>
+          <div class="hero-cta-row">
+            <a class="btn-champagne btn-champagne--lg" href="#rendez-vous">Prendre rendez-vous</a>
+            <a class="btn-ghost-warm" href="tel:+2250707171117">Urgence · 07 07 17 11 17</a>
           </div>
         </div>
 
-        <!-- Beat 2 Copy (Arrives as the 3D crown seats onto its titanium base; non-overlapping cue range) -->
-        <div class="hero-copy-block" data-sc-cue="0.48 0.99 0.15 0.08">
-          <div class="hero-beat2-card">
-            <p class="hero-beat2-title">Chaque soin commence par une explication simple.</p>
-            <p class="hero-beat2-body">Avant le moindre geste, vous voyez ce qui pose problème, comment nous allons le traiter sans douleur et quel sera le coût exact avec ou sans mutuelle.</p>
+        <!-- Temps 2 : Promesse d'écoute et de transparence (plage 0.49..0.99 sans chevauchement) -->
+        <div class="hero-copy hero-copy--beat2" data-sc-cue="0.49 0.99 0.15 0.08">
+          <div class="hero-editorial-whisper">
+            <p class="hero-whisper__heading">Ici, on prend le temps avant chaque geste.</p>
+            <p class="hero-whisper__body">Vous savez toujours ce que nous observons, comment l'anesthésie agit sans douleur et quel est le montant précis de votre soin, avec ou sans mutuelle.</p>
           </div>
         </div>
 
@@ -153,82 +148,241 @@
     </section>
 
     <!-- ====================================================================
-         ACT 2 · QUIET INTIMACY: HONEST REASSURANCE BEFORE THE PEAK
-         Device: flow + in + reveal (authored calm, zero pinning)
+         ACTE 2 · LA MAISON DE SOIN : RESPIRATION ÉDITORIALE & APAISEMENT
+         Dispositifs : flow + data-sc-reveal="up" + data-sc-in (calme maîtrisé)
          ================================================================== -->
-    <section id="approche" class="sc-section reassurance-section" data-sc-act="flow" data-sc-drift="#eef2f7">
-      <div class="sc-wrap reassurance-grid">
-        <div class="sc-stack reassurance-prose" data-sc-in data-sc-stagger="65">
-          <h2 class="sc-display sc-display--md">Venir sans boule au ventre.</h2>
-          <p>Beaucoup de patients attendent que la douleur empêche de dormir avant d'appeler un dentiste. La peur d'avoir mal ou de tomber sur une dépense imprévue fait reculer la visite de mois en mois.</p>
-          <p>Au 2e étage de l'Immeuble Librairie de France, nous commençons toujours par vous écouter. L'anesthésie locale est posée doucement, en lui laissant le temps d'agir complètement avant de travailler. Chaque instrument suit un cycle strict de stérilisation entre deux patients.</p>
-
-          <div class="reassurance-facts">
-            <div>
-              <p class="fact-item__title">Soins expliqués clairement</p>
-              <p class="fact-item__desc">Pas de termes médicaux compliqués : nous vous montrons l'état de la dent et les solutions possibles.</p>
-            </div>
-            <div>
-              <p class="fact-item__title">Mutuelles partenaires</p>
-              <p class="fact-item__desc">Prise en charge avec plusieurs organismes de santé et mutuelles en Côte d'Ivoire, dont la MUPEMENET-CI.</p>
-            </div>
+    <section id="maison" class="sc-section sanctuary-act" data-sc-act="flow" data-sc-drift="#f4ece0">
+      <div class="sc-wrap sanctuary-spread">
+        <figure class="sanctuary-figure">
+          <div class="sanctuary-figure__frame" data-sc-reveal="up" data-sc-reveal-at="0.08 0.48">
+            <img
+              src="assets/v2-sanctuary-suite.webp"
+              width="1152"
+              height="1536"
+              loading="lazy"
+              alt="Salle de soin baignée de lumière matinale avec murs en travertin blond et fauteuil ergonomique ivoire">
           </div>
-        </div>
-
-        <figure class="reassurance-figure">
-          <div class="reassurance-figure__frame" data-sc-reveal="up" data-sc-reveal-at="0.08 0.48">
-            <img src="assets/02-sanctuary-suite.webp" width="896" height="1152" loading="lazy" alt="Salle de soin lumineuse du cabinet avec fauteuil ergonomique blanc et plateau d'instruments stérilisés">
-          </div>
-          <figcaption>Un cadre calme et aéré, pensé pour apaiser les adultes comme les enfants dès l'arrivée.</figcaption>
+          <figcaption>Au 2e étage de l'Immeuble Librairie de France, un espace calme à l'écart de l'agitation du centre-ville.</figcaption>
         </figure>
+
+        <div class="sanctuary-editorial" data-sc-in data-sc-stagger="70">
+          <span class="sc-label warm-eyebrow">L'esprit du cabinet</span>
+          <h2 class="sc-display section-heading">Venir chez le dentiste l'esprit <em>léger</em>.</h2>
+          <p class="editorial-para">Reporter un rendez-vous pendant des mois arrive à tout le monde. Souvent, on craint d'avoir mal ou de ne pas maîtriser le budget du traitement.</p>
+          <p class="editorial-para">Le Dr Kouakou Hilaire et son équipe commencent chaque visite par un échange simple. L'anesthésie locale est posée avec patience, en attendant qu'elle fasse pleinement effet avant d'intervenir. Entre chaque patient, tous les instruments suivent un protocole complet de stérilisation.</p>
+
+          <dl class="sanctuary-pillars">
+            <div class="pillar-row">
+              <dt>Écoute et clarté</dt>
+              <dd>Explications en mots simples et devis limpide remis avant de débuter vos soins.</dd>
+            </div>
+            <div class="pillar-row">
+              <dt>Mutuelles et prévoyance</dt>
+              <dd>Accompagnement avec plusieurs assurances santé et mutuelles en Côte d'Ivoire, dont la MUPEMENET-CI.</dd>
+            </div>
+            <div class="pillar-row">
+              <dt>Accueil dès 07h30</dt>
+              <dd>Horaires matinaux du lundi au samedi pour consulter facilement avant votre journée ou en cas de rage de dents.</dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </section>
 
     <!-- ====================================================================
-         ACT 3 · THE ENGINEERED PEAK & SIGNATURE MOVE: 3D RADIOSCOPY SCANNER
-         Device: pin (largest span: 3.6vh) + bespoke --sc-p 3D X-Ray plane + live dossier state
+         ACTE 3 · SAVOIR-FAIRE : SÉQUENCE STUDIO PHOTORÉALISTE AU SCROLL
+         Dispositifs : scrub (video[data-sc-scrub] dense-GOP) + écrin expresso
          ================================================================== -->
-    <section id="scanner-act" data-sc-act="pin" data-sc-span="3.6" data-sc-dwell="0.34" data-sc-drift="#e6edf6">
-      <div data-sc-stage class="scanner-stage">
-        <div class="scanner-shell">
+    <section id="savoir-faire" class="dark-cinema-act" data-sc-act="scrub" data-sc-span="3.2" data-sc-dwell="0.32">
+      <div data-sc-stage class="sc-stage cinema-stage">
+        <img
+          class="sc-stage__poster"
+          src="assets/03-eclat-poster.webp"
+          width="1920"
+          height="1080"
+          alt="Vue macro studio de couronnes en céramique nacrée et d'une gouttière transparente sur pierre sombre">
+        <video
+          data-sc-scrub
+          data-sc-src="assets/03-eclat-nacre.mp4"
+          data-sc-src-mobile="assets/03-eclat-nacre-m.mp4"
+          muted
+          playsinline
+          aria-hidden="true"></video>
 
-          <!-- Left: Real-time 3D Clinical Radioscopy Chamber -->
-          <div class="scanner-viewport" id="scanner-3d-stage" data-sc-verify-state="init">
-            <div class="scanner-hud-top">
-              <span class="scanner-readout" id="scanner-depth-label">Vue émail naturel</span>
-              <span class="scanner-readout" id="scanner-zone-label">Zone ciblée : couronne et chambre pulpaire</span>
-            </div>
+        <!-- Voile frère sombre orienté sur la colonne de texte gauche -->
+        <div class="cinema-scrim" aria-hidden="true"></div>
 
-            <img class="webgl-poster" src="assets/scanner-3d-poster.webp" width="900" height="900" alt="Coupe anatomique 3D d'une molaire montrant l'émail et les canaux internes">
-            <canvas id="scanner-3d-canvas" aria-label="Modèle dentaire 3D interactif avec scanner radiographique"></canvas>
+        <!-- Temps 1 du film studio (0.04..0.45 sans chevauchement) -->
+        <div class="cinema-copy" data-sc-cue="0.04 0.45 0.14 0.14">
+          <h2 class="sc-display cinema-heading">La solidité d'un soin médical, la finesse d'un travail <em>d'orfèvre</em>.</h2>
+          <p class="cinema-body">Une restauration réussie ne doit ni se sentir en mâchant, ni se remarquer lorsque vous riez. Nous choisissons des teintes nacrées qui se fondent naturellement parmi vos propres dents.</p>
+        </div>
 
-            <div class="scanner-phase-cue" data-sc-cue="0 0.30 0 0.12">1 · Émail externe intact</div>
-            <div class="scanner-phase-cue" data-sc-cue="0.33 0.65 0.12 0.12">2 · Exploration radiographique sous l'émail</div>
-            <div class="scanner-phase-cue" data-sc-cue="0.68 0.99 0.12 0.06">3 · Dent soignée et refermée durablement</div>
+        <!-- Temps 2 du film studio (0.50..0.95 sans chevauchement) -->
+        <div class="cinema-copy" data-sc-cue="0.50 0.95 0.14 0.10">
+          <h2 class="sc-display cinema-heading">Des matériaux pensés pour <em>durer</em>.</h2>
+          <p class="cinema-body">Résines esthétiques de teinte naturelle, couronnes céramiques sur mesure, ancrages solides et solutions d'alignement discrètes adaptées aux adultes comme aux adolescents.</p>
+          <div class="cinema-cta">
+            <a class="btn-champagne-light" href="#rendez-vous">Prendre rendez-vous</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         ACTE 4 · LES SOINS : GALERIE LOOKBOOK GRAND FORMAT
+         Dispositifs : pan + data-sc-tilt="4"
+         ================================================================== -->
+    <section id="soins" data-sc-act="pan" data-sc-span="2.9" data-sc-drift="#f5eee4">
+      <div data-sc-stage class="lookbook-stage">
+        <div class="lookbook-rail" data-sc-pan="0.55">
+
+          <div class="lookbook-intro">
+            <h2 class="sc-display section-heading">Tous les soins de votre sourire, à la <em>même adresse</em>.</h2>
+            <p class="lookbook-intro__text">Du contrôle annuel des enfants au remplacement complet d'une dent absente, toute votre famille est suivie sur place à Bouaké.</p>
           </div>
 
-          <!-- Right: Interactive Symptom Selector synced to WhatsApp Dossier -->
-          <div class="scanner-panel" data-sc-cue="0 0.99 0 0.06">
-            <span class="sc-label scanner-panel__eyebrow">Explorateur clinique 3D</span>
-            <h2 class="sc-display">Voyez ce qui se passe sous l'émail.</h2>
-            <p class="scanner-panel__intro">Faites défiler pour passer le scanner à travers la dent, ou sélectionnez ce qui vous amène pour préparer votre visite.</p>
+          <article class="lookbook-plate" data-sc-tilt="4">
+            <div class="lookbook-plate__media">
+              <img src="assets/v2-look-urgence.webp" width="900" height="1200" loading="lazy" alt="Instruments de soin délicats posés sur du lin crème et du travertin">
+            </div>
+            <div class="lookbook-plate__caption">
+              <span class="lookbook-num">I</span>
+              <div>
+                <h3>Urgences et soulagement</h3>
+                <p>Rage de dents, carie profonde, dent cassée ou gencive douloureuse. Nous calmons d'abord la douleur dès l'ouverture à 07h30.</p>
+                <button type="button" class="intent-link" data-pick-intent="urgence">Préparer un rendez-vous pour ce motif</button>
+              </div>
+            </div>
+          </article>
 
-            <div class="zone-tabs" role="tablist" aria-label="Choisissez votre besoin dentaire">
-              <button type="button" class="zone-tab" role="tab" aria-selected="true" data-zone-tab="douleur">Douleur ou carie</button>
-              <button type="button" class="zone-tab" role="tab" aria-selected="false" tabindex="-1" data-zone-tab="detartrage">Détartrage et gencives</button>
-              <button type="button" class="zone-tab" role="tab" aria-selected="false" tabindex="-1" data-zone-tab="implant">Dent manquante</button>
-              <button type="button" class="zone-tab" role="tab" aria-selected="false" tabindex="-1" data-zone-tab="alignement">Orthodontie</button>
-              <button type="button" class="zone-tab" role="tab" aria-selected="false" tabindex="-1" data-zone-tab="controle">Contrôle et enfants</button>
+          <article class="lookbook-plate" data-sc-tilt="4">
+            <div class="lookbook-plate__media">
+              <img src="assets/v2-look-sourire.webp" width="900" height="1200" loading="lazy" alt="Sourire lumineux et sain photographié en lumière naturelle chaude">
+            </div>
+            <div class="lookbook-plate__caption">
+              <span class="lookbook-num">II</span>
+              <div>
+                <h3>Éclat, détartrage et gencives</h3>
+                <p>Nettoyage doux aux ultrasons, polissage des taches de café ou de thé et soin des gencives qui saignent au brossage.</p>
+                <button type="button" class="intent-link" data-pick-intent="eclat">Préparer un rendez-vous pour ce motif</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="lookbook-plate" data-sc-tilt="4">
+            <div class="lookbook-plate__media">
+              <img src="assets/v2-look-nacre.webp" width="900" height="1200" loading="lazy" alt="Couronnes en céramique nacrée aux reflets naturels sur pierre chaude">
+            </div>
+            <div class="lookbook-plate__caption">
+              <span class="lookbook-num">III</span>
+              <div>
+                <h3>Prothèses céramiques et implants</h3>
+                <p>Couronnes esthétiques fixes, prothèses confortables et implants pour retrouver une mastication stable et un sourire complet.</p>
+                <button type="button" class="intent-link" data-pick-intent="prothese">Préparer un rendez-vous pour ce motif</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="lookbook-plate" data-sc-tilt="4">
+            <div class="lookbook-plate__media">
+              <img src="assets/v2-look-alignement.webp" width="900" height="1200" loading="lazy" alt="Gouttière d'alignement dentaire transparente posée sur un socle en travertin">
+            </div>
+            <div class="lookbook-plate__caption">
+              <span class="lookbook-num">IV</span>
+              <div>
+                <h3>Alignement et suivi des enfants</h3>
+                <p>Correction progressive de l'alignement dentaire chez l'enfant, l'adolescent et l'adulte, et premières visites rassurantes.</p>
+                <button type="button" class="intent-link" data-pick-intent="alignement">Préparer un rendez-vous pour ce motif</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="lookbook-endnote">
+            <p class="lookbook-endnote__label">Prise en charge santé</p>
+            <h3>Mutuelles partenaires acceptées</h3>
+            <p>Le Cabinet Dentaire Ivoire reçoit les assurés de plusieurs réseaux de prévoyance et mutuelles, dont la <strong>MUPEMENET-CI</strong>. Présentez simplement votre carte dès votre arrivée à l'accueil.</p>
+            <a class="btn-champagne" href="#rendez-vous">Prendre rendez-vous</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         ACTE 5 · LE PIC & MOUVEMENT SIGNATURE : LE RIDEAU D'ÉCLAT IVOIRE
+         Plus longue amplitude de la page (3.8vh).
+         Voile optique champagne piloté au scroll (--sc-p) ET manipulable au doigt/clavier.
+         ================================================================== -->
+    <section id="eclat" data-sc-act="pin" data-sc-span="3.8" data-sc-dwell="0.35" data-sc-drift="#ede2d2">
+      <div data-sc-stage class="eclat-stage">
+        <div class="eclat-layout">
+
+          <!-- Cadre optique plein relief : comparaison au pixel Avant / Après soin -->
+          <div class="eclat-loupe" id="eclat-loupe-stage" data-sc-verify-state="init">
+            <!-- Couche de base : sourire après soin (éclat sain, naturel et lumineux) -->
+            <img
+              class="eclat-img eclat-img--after"
+              src="assets/v2-peak-after.webp"
+              width="1600"
+              height="900"
+              alt="Sourire radieux, sain et naturellement lumineux après soin au Cabinet Dentaire Ivoire">
+
+            <!-- Couche supérieure découpée par le rideau optique : état terne avant soin -->
+            <div class="eclat-before-mask" id="eclat-before-mask">
+              <img
+                class="eclat-img eclat-img--before"
+                src="assets/v2-peak-before.webp"
+                width="1600"
+                height="900"
+                alt="Sourire terne présentant des taches superficielles avant soin et polissage">
             </div>
 
-            <div class="zone-detail" role="tabpanel" aria-live="polite">
-              <h3 class="zone-detail__title" id="zone-detail-title">Soulager une rage de dents ou soigner une carie</h3>
-              <p class="zone-detail__body" id="zone-detail-body">Lorsque l'émail est entamé, le froid ou le sucre réveille le nerf. Nous endormons d'abord la zone sans précipitation, retirons la partie abîmée et reconstruisons la dent avec une résine de la teinte naturelle de votre sourire.</p>
-              <p class="zone-detail__meta" id="zone-detail-meta">Créneau prioritaire : appelez ou écrivez dès 07h30 en semaine en cas de vive douleur.</p>
-              <div class="zone-detail__footer">
-                <span class="dossier-sync-note" id="dossier-sync-note">Motif préparé dans votre demande : Douleur ou carie</span>
-                <a class="btn-primary btn-primary--sm" href="#rendez-vous">Prendre rendez-vous</a>
-              </div>
+            <!-- Ligne de cristal et poignée en bronze champagne -->
+            <div class="eclat-curtain-line" id="eclat-curtain-line" aria-hidden="true">
+              <span class="eclat-curtain-knob">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 7L4 12L9 17M15 7L20 12L15 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+
+            <!-- Repères discrets aux deux extrémités -->
+            <span class="eclat-badge eclat-badge--left">Avant soin</span>
+            <span class="eclat-badge eclat-badge--right">Éclat naturel retrouvé</span>
+
+            <!-- Curseur natif accessible superposé (souris, tactile et flèches clavier) -->
+            <input
+              type="range"
+              class="eclat-range-input"
+              id="eclat-range"
+              min="4"
+              max="96"
+              value="78"
+              aria-label="Comparer le sourire avant soin et l'éclat naturel retrouvé après soin">
+          </div>
+
+          <!-- Colonne éditoriale & sélecteur d'intention synchronisé au WhatsApp -->
+          <div class="eclat-editorial" data-sc-cue="0 0.99 0 0.06">
+            <span class="sc-label warm-eyebrow">Résultat naturel sur mesure</span>
+            <h2 class="sc-display eclat-heading">Un sourire plus lumineux, qui reste pleinement <em>le vôtre</em>.</h2>
+            <p class="eclat-lead">Faites défiler ou glissez le voile doré sur l'image, puis choisissez votre objectif pour préparer votre visite.</p>
+
+            <div class="intent-pills" role="tablist" aria-label="Objectif souhaité pour votre sourire">
+              <button type="button" class="intent-pill" role="tab" aria-selected="true" data-intent-tab="eclat">Éclat et détartrage</button>
+              <button type="button" class="intent-pill" role="tab" aria-selected="false" tabindex="-1" data-intent-tab="prothese">Dent abîmée ou absente</button>
+              <button type="button" class="intent-pill" role="tab" aria-selected="false" tabindex="-1" data-intent-tab="alignement">Alignement harmonieux</button>
+              <button type="button" class="intent-pill" role="tab" aria-selected="false" tabindex="-1" data-intent-tab="urgence">Soulager une douleur</button>
+            </div>
+
+            <div class="intent-story" id="intent-story-panel" role="tabpanel" aria-live="polite">
+              <h3 class="intent-story__title" id="intent-story-title">Retrouver une teinte saine et des gencives apaisées</h3>
+              <p class="intent-story__body" id="intent-story-body">Le thé, le café et le tartre ternissent progressivement l'émail et irritent les gencives. Un détartrage doux aux ultrasons suivi d'un polissage soigné redonne fraîcheur et éclat naturel dès la première séance.</p>
+              <p class="intent-story__sync" id="intent-story-sync">Sélection enregistrée pour votre demande : Éclat et détartrage</p>
+            </div>
+
+            <div class="eclat-cta-row">
+              <a class="btn-champagne" href="#rendez-vous">Prendre rendez-vous</a>
             </div>
           </div>
 
@@ -237,222 +391,133 @@
     </section>
 
     <!-- ====================================================================
-         ACT 4 · ASSURED BREADTH: LATERAL CARE GALLERY RAIL
-         Device: pan + tilt (measured > 1,000px positive overflow on 1440px desktop)
+         ACTE 6 · CONCIERGERIE WHATSAPP & REPÈRES GRAND BAZAR (Clôture résolue)
+         Dispositifs : flow + data-sc-in (zéro boîte administrative lourde)
          ================================================================== -->
-    <section id="soins-act" data-sc-act="pan" data-sc-span="2.8" data-sc-drift="#eef2f7">
-      <div data-sc-stage class="care-pan-stage">
-        <div class="care-rail" data-sc-pan="0.05">
-
-          <div class="care-rail__lead">
-            <h2 class="sc-display sc-display--md">Tous vos soins au même étage.</h2>
-            <p class="sc-body">Du simple nettoyage annuel au remplacement complet d'une dent, toute votre famille est suivie sur place à Bouaké.</p>
-          </div>
-
-          <article class="care-card" data-sc-tilt="5">
-            <div>
-              <div class="care-card__media">
-                <img src="assets/04-soin-urgence.webp" width="896" height="1152" loading="lazy" alt="Miroir dentaire et sonde d'examen stérilisés posés sur un champ chirurgical clair">
-              </div>
-              <h3>Urgences</h3>
-              <p>Rage de dents, gencive enflée, dent cassée ou couronne descellée. Prise en charge rapide dès l'ouverture à 07h30.</p>
-            </div>
-            <button type="button" class="care-card__pick" data-pick-zone="douleur">Choisir ce motif pour mon rendez-vous</button>
-          </article>
-
-          <article class="care-card" data-sc-tilt="5">
-            <div>
-              <div class="care-card__media">
-                <img src="assets/04-soin-implant.webp" width="896" height="1152" loading="lazy" alt="Implant dentaire en titane et couronne céramique couleur ivoire sur bloc de verre dépoli">
-              </div>
-              <h3>Implants</h3>
-              <p>Implants en titane, couronnes céramiques et prothèses fixes ou amovibles pour retrouver une mastication solide.</p>
-            </div>
-            <button type="button" class="care-card__pick" data-pick-zone="implant">Choisir ce motif pour mon rendez-vous</button>
-          </article>
-
-          <article class="care-card" data-sc-tilt="5">
-            <div>
-              <div class="care-card__media">
-                <img src="assets/04-soin-ortho.webp" width="896" height="1152" loading="lazy" alt="Gouttière d'alignement orthodontique transparente posée sur un plateau en verre et métal brossé">
-              </div>
-              <h3>Orthodontie</h3>
-              <p>Alignement des dents chez l'enfant, l'adolescent et l'adulte pour un sourire équilibré et facile à brosser.</p>
-            </div>
-            <button type="button" class="care-card__pick" data-pick-zone="alignement">Choisir ce motif pour mon rendez-vous</button>
-          </article>
-
-          <article class="care-card" data-sc-tilt="5">
-            <div>
-              <div class="care-card__media">
-                <img src="assets/04-soin-hygiene.webp" width="896" height="1152" loading="lazy" alt="Pièce à main de détartrage ultrasonique en titane brossé sur bloc de céramique blanche">
-              </div>
-              <h3>Prévention</h3>
-              <p>Détartrage doux aux ultrasons, soin des gencives qui saignent et visites de contrôle rassurantes pour les enfants.</p>
-            </div>
-            <button type="button" class="care-card__pick" data-pick-zone="detartrage">Choisir ce motif pour mon rendez-vous</button>
-          </article>
-
-          <article class="care-card care-card--close">
-            <div>
-              <h3>Assurances et mutuelles</h3>
-              <p>Le cabinet est partenaire de réseaux de prévoyance et mutuelles comme la MUPEMENET-CI. Apportez votre carte d'assuré pour vérifier vos droits dès l'accueil.</p>
-            </div>
-            <div style="margin-top: var(--sc-5);">
-              <a class="btn-primary" href="#rendez-vous">Prendre rendez-vous</a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         ACT 5 · RESOLVED CLOSE: ACTIVE WHATSAPP DESK & GRAND BAZAR ACCESS
-         Device: flow + in (holds permanently at full opacity to the final pixel)
-         ================================================================== -->
-    <section id="rendez-vous" class="desk-section" data-sc-act="flow" data-sc-drift="#f4f6f9">
+    <section id="rendez-vous" class="sc-section concierge-act" data-sc-act="flow" data-sc-drift="#faf6f0">
       <div class="sc-wrap">
-        <div class="desk-grid">
 
-          <!-- Left Column: Pre-filled WhatsApp Consultation Composer -->
-          <div class="dossier-box" data-sc-in>
-            <h2 class="sc-display">Réservez votre créneau en une minute.</h2>
-            <p class="dossier-lead">Votre motif choisi plus haut est déjà inscrit. Complétez si besoin et envoyez directement votre demande sur le WhatsApp du cabinet.</p>
+        <div class="concierge-grid" data-sc-in data-sc-stagger="80">
 
-            <form class="dossier-form" id="dossier-form" method="post" action="#rendez-vous">
-              <div class="field-group">
-                <label class="field-label" for="dossier-motif">Motif de la consultation</label>
-                <select class="field-select" id="dossier-motif" name="motif">
-                  <option value="Soulager une douleur ou soigner une carie">Soulager une douleur ou soigner une carie</option>
-                  <option value="Détartrage et soin des gencives">Détartrage et soin des gencives</option>
-                  <option value="Remplacer une dent absente (implant ou prothèse)">Remplacer une dent absente (implant ou prothèse)</option>
-                  <option value="Alignement dentaire et orthodontie">Alignement dentaire et orthodontie</option>
-                  <option value="Bilan complet ou visite enfant">Bilan complet ou visite enfant</option>
-                </select>
-              </div>
+          <!-- Gauche : Conciergerie WhatsApp tactile en deux gestes -->
+          <div class="concierge-composer">
+            <h2 class="sc-display section-heading">Préparez votre venue en <em>toute simplicité</em>.</h2>
+            <p class="concierge-sub">Choisissez ce qui vous amène et votre moment préféré : votre message s'ouvre directement dans le WhatsApp du cabinet au <strong>(+225) 07 07 17 11 17</strong>.</p>
 
-              <div class="field-row">
-                <div class="field-group">
-                  <label class="field-label" for="dossier-slot">Moment préféré</label>
-                  <select class="field-select" id="dossier-slot" name="slot">
-                    <option value="Urgence (dès que possible)">Urgence (dès que possible)</option>
-                    <option value="Matin en semaine (07h30 à 11h00)">Matin en semaine (07h30 à 11h00)</option>
-                    <option value="Milieu de journée (11h00 à 15h00)">Milieu de journée (11h00 à 15h00)</option>
-                    <option value="Samedi matin (07h30 à 12h00)">Samedi matin (07h30 à 12h00)</option>
-                  </select>
+            <form id="concierge-form" class="concierge-form" action="#rendez-vous" method="post" novalidate>
+
+              <fieldset class="chip-fieldset">
+                <legend class="chip-legend">1. Votre besoin principal</legend>
+                <div class="choice-chips" id="motif-chips">
+                  <button type="button" class="choice-chip is-active" data-motif="Retrouver l'éclat du sourire (détartrage, polissage ou gencives)">Éclat et détartrage</button>
+                  <button type="button" class="choice-chip" data-motif="Soulager une douleur ou une urgence dentaire">Urgence ou douleur</button>
+                  <button type="button" class="choice-chip" data-motif="Réparer ou remplacer une dent (couronne céramique, prothèse ou implant)">Couronne ou implant</button>
+                  <button type="button" class="choice-chip" data-motif="Aligner les dents (orthodontie enfant, ado ou adulte)">Alignement dentaire</button>
+                  <button type="button" class="choice-chip" data-motif="Bilan complet ou visite pour un enfant">Contrôle ou enfant</button>
                 </div>
+                <input type="hidden" id="concierge-motif" name="motif" value="Retrouver l'éclat du sourire (détartrage, polissage ou gencives)">
+              </fieldset>
 
-                <div class="field-group">
-                  <label class="field-label" for="dossier-name">Votre nom (facultatif)</label>
-                  <input class="field-input" type="text" id="dossier-name" name="patient_name" autocomplete="name" placeholder="Ex. Konan Awa">
+              <fieldset class="chip-fieldset">
+                <legend class="chip-legend">2. Créneau souhaité</legend>
+                <div class="choice-chips" id="moment-chips">
+                  <button type="button" class="choice-chip is-active" data-moment="Dès que possible (créneau prioritaire dès 07h30)">Dès que possible</button>
+                  <button type="button" class="choice-chip" data-moment="En semaine (lundi au vendredi, 07h30 à 15h00)">En semaine (07h30 à 15h00)</button>
+                  <button type="button" class="choice-chip" data-moment="Le samedi matin (07h30 à 12h00)">Samedi matin (07h30 à 12h00)</button>
+                </div>
+                <input type="hidden" id="concierge-moment" name="moment" value="Dès que possible (créneau prioritaire dès 07h30)">
+              </fieldset>
+
+              <div class="concierge-inputs">
+                <div class="minimal-field">
+                  <label for="patient-name">Votre nom <span class="opt-tag">(facultatif)</span></label>
+                  <input id="patient-name" name="nom" type="text" autocomplete="name" placeholder="Ex. Konan Awa">
+                </div>
+                <div class="minimal-field">
+                  <label for="patient-mutuelle">Mutuelle ou précision <span class="opt-tag">(facultatif)</span></label>
+                  <input id="patient-mutuelle" name="note" type="text" placeholder="Ex. Carte MUPEMENET-CI">
                 </div>
               </div>
 
-              <div class="field-group">
-                <label class="field-label" for="dossier-note">Précision ou mutuelle (facultatif)</label>
-                <input class="field-input" type="text" id="dossier-note" name="note" placeholder="Ex. Carte MUPEMENET-CI, douleur côté droit...">
+              <div class="wa-whisper" aria-live="polite">
+                <span class="wa-whisper__label">Message prêt pour le WhatsApp du cabinet</span>
+                <p class="wa-whisper__body" id="wa-preview-text"></p>
               </div>
 
-              <div class="wa-preview" aria-live="polite">
-                <div class="wa-preview__label">Aperçu du message WhatsApp au (+225) 07 07 17 11 17</div>
-                <p class="wa-preview__text" id="wa-preview-text">Bonjour Cabinet Dentaire Ivoire, J'aimerais prendre rendez-vous au cabinet de Bouaké. Motif : Soulager une douleur ou soigner une carie. Disponibilité souhaitée : Urgence (dès que possible). Merci beaucoup.</p>
+              <div class="concierge-cta-bar">
+                <button type="submit" class="btn-champagne btn-champagne--lg">Prendre rendez-vous</button>
+                <a
+                  id="wa-direct-anchor"
+                  class="btn-ghost-warm"
+                  href="https://wa.me/2250707171117"
+                  target="_blank"
+                  rel="noopener noreferrer">Ouvrir WhatsApp</a>
               </div>
 
-              <div class="dossier-actions">
-                <button type="submit" class="btn-primary btn-primary--lg">Prendre rendez-vous</button>
-                <a class="btn-secondary" id="direct-wa-fallback" href="https://wa.me/2250707171117" target="_blank" rel="noopener noreferrer">Ouvrir WhatsApp direct</a>
+              <div class="concierge-tools">
+                <button type="button" class="utility-link" id="copy-wa-btn">Copier le texte du message</button>
+                <button type="button" class="utility-link" id="download-memo-btn">Télécharger la fiche d'accès (.txt)</button>
               </div>
 
-              <div class="dossier-utilities">
-                <button type="button" class="text-action-btn" id="copy-wa-btn">Copier le message</button>
-                <button type="button" class="text-action-btn" id="download-memo-btn">Télécharger le mémo d'accès (.txt)</button>
-              </div>
-
-              <p class="dossier-feedback" id="dossier-feedback" role="status" hidden></p>
+              <p class="concierge-toast" id="concierge-feedback" role="status" hidden></p>
             </form>
           </div>
 
-          <!-- Right Column: Exact Bouaké Landmarks, Phones & Map -->
-          <div class="location-box" id="acces-bouake" data-sc-in>
-            <h2 class="sc-display">Nous trouver à Bouaké.</h2>
+          <!-- Droite : Table d'orientation architecturale à Bouaké -->
+          <aside class="concierge-address" aria-labelledby="bouake-heading">
+            <div class="address-plaque">
+              <p class="live-hours-pill" id="live-hours-status">Bouaké · Centre-ville</p>
+              <h2 id="bouake-heading" class="sc-display address-heading">Juste en face du <em>Grand Bazar</em>.</h2>
 
-            <ul class="landmark-list">
-              <li>
-                <span class="landmark-list__key">Repère exact en centre-ville</span>
-                Avenue Félix Houphouët-Boigny, juste en face du Grand Bazar, Immeuble Librairie de France au 2e étage (01 BP 888 Bouaké 01).
-              </li>
-              <li>
-                <span class="landmark-list__key">Chirurgien-dentiste</span>
-                Dr Kouakou Hilaire et son équipe soignante.
-              </li>
-              <li>
-                <span class="landmark-list__key">Horaires d'accueil</span>
-                Lundi au vendredi de 07h30 à 15h00 · Samedi de 07h30 à 12h00 · Fermé le dimanche.
-              </li>
-              <li>
-                <span class="landmark-list__key">Appeler directement l'accueil</span>
-                <div class="direct-phones">
-                  <a class="phone-pill" href="tel:+2250707171117">(+225) 07 07 17 11 17</a>
-                  <a class="phone-pill" href="tel:+2252731634953">(+225) 27 31 63 49 53</a>
+              <div class="address-ledger">
+                <div class="ledger-item">
+                  <span class="ledger-key">Adresse exacte</span>
+                  <p>Avenue Félix Houphouët-Boigny, face au Grand Bazar<br>Immeuble Librairie de France, 2e étage (01 BP 888 Bouaké 01)</p>
                 </div>
-              </li>
-            </ul>
 
-            <!-- Clean Architectural Landmark Map of Avenue Félix Houphouët-Boigny & Grand Bazar -->
-            <div class="bouake-map-card">
-              <svg class="bouake-map-svg" viewBox="0 0 560 230" role="img" aria-label="Plan de repérage à Bouaké : Avenue Félix Houphouët-Boigny, face au Grand Bazar, Immeuble Librairie de France 2e étage">
-                <rect width="560" height="230" fill="#eef3f9"/>
-                <!-- City blocks -->
-                <rect x="24" y="20" width="215" height="74" rx="8" fill="#dfe7f2"/>
-                <rect x="315" y="20" width="221" height="74" rx="8" fill="#dfe7f2"/>
-                <rect x="24" y="142" width="215" height="68" rx="8" fill="#dfe7f2"/>
-                <rect x="315" y="142" width="221" height="68" rx="8" fill="#dfe7f2"/>
-                <!-- Main arterial avenue -->
-                <rect x="0" y="96" width="560" height="44" fill="#ffffff"/>
-                <line x1="0" y1="118" x2="560" y2="118" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="8 8"/>
-                <!-- Cross street -->
-                <rect x="242" y="0" width="70" height="230" fill="#ffffff"/>
-                <text x="277" y="114" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="600" fill="#3c4b5e">Avenue Félix Houphouët-Boigny</text>
+                <div class="ledger-item">
+                  <span class="ledger-key">Chirurgien-dentiste</span>
+                  <p>Dr Kouakou Hilaire et son équipe soignante</p>
+                </div>
 
-                <!-- Landmark opposite: Grand Bazar -->
-                <rect x="336" y="152" width="166" height="48" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-                <text x="419" y="174" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11.5" font-weight="700" fill="#0e1724">GRAND BAZAR</text>
-                <text x="419" y="189" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5" fill="#3c4b5e">Repère juste en face</text>
+                <div class="ledger-item">
+                  <span class="ledger-key">Horaires d'ouverture</span>
+                  <p>Lundi au vendredi : 07h30 à 15h00<br>Samedi : 07h30 à 12h00 · Fermé le dimanche</p>
+                </div>
 
-                <!-- Sightline across the avenue -->
-                <line x1="419" y1="150" x2="419" y2="86" stroke="#1352b8" stroke-width="1.8" stroke-dasharray="4 4"/>
+                <div class="ledger-item">
+                  <span class="ledger-key">Ligne directe et WhatsApp</span>
+                  <div class="phone-links">
+                    <a class="phone-chip" href="tel:+2250707171117">(+225) 07 07 17 11 17</a>
+                    <a class="phone-chip" href="tel:+2252731634953">(+225) 27 31 63 49 53</a>
+                  </div>
+                </div>
+              </div>
 
-                <!-- Clinic Pin: Immeuble Librairie de France 2e étage -->
-                <rect x="326" y="28" width="194" height="58" rx="7" fill="#1352b8"/>
-                <circle cx="348" cy="57" r="9" fill="#f8faff"/>
-                <circle cx="348" cy="57" r="4" fill="#1352b8"/>
-                <text x="366" y="52" font-family="Outfit, sans-serif" font-size="12.5" font-weight="600" fill="#f8faff">Cabinet Dentaire Ivoire</text>
-                <text x="366" y="69" font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#dbeafe">Imm. Librairie de France · 2e étage</text>
-              </svg>
-
-              <div class="bouake-map-bar">
-                <span>GPS : 7.6831, -5.0282 (Bouaké)</span>
-                <a class="btn-secondary" style="padding: 0.48rem 0.85rem; font-size: 0.8rem;" href="https://www.google.com/maps/place/Cabinet+Dentaire+Ivoire/@7.683118,-5.0282452,17z/data=!4m6!3m5!1s0xfc7ff5f057dac27:0x2d71811d5910e794!8m2!3d7.683118!4d-5.0282452!16s%2Fg%2F11frp8pt_6" target="_blank" rel="noopener noreferrer">Ouvrir Google Maps</a>
+              <div class="address-map-strip">
+                <div class="coords-mono">GPS · 7.6831, -5.0282</div>
+                <a
+                  class="btn-ghost-warm btn-ghost-warm--sm"
+                  href="https://www.google.com/maps/place/Cabinet+Dentaire+Ivoire/@7.683118,-5.0282452,17z/data=!3m1!4b1!4m6!3m5!1s0xfc7ff5f057dac27:0x2d71811d5910e794!8m2!3d7.683118!4d-5.0282452!16s%2Fg%2F11frp8pt_6"
+                  target="_blank"
+                  rel="noopener noreferrer">Itinéraire Google Maps</a>
               </div>
             </div>
-          </div>
+          </aside>
 
         </div>
 
-        <footer class="clinic-colophon">
-          <span><strong>Cabinet Dentaire Ivoire</strong> · Avenue Félix Houphouët-Boigny, Immeuble Librairie de France (2e étage), Bouaké</span>
-          <span><a href="mailto:cabinetdentaireivoire@yahoo.fr">cabinetdentaireivoire@yahoo.fr</a> · (+225) 07 07 17 11 17 · (+225) 27 31 63 49 53</span>
+        <footer class="maison-colophon">
+          <p><strong>Cabinet Dentaire Ivoire</strong> · Avenue Félix Houphouët-Boigny, Immeuble Librairie de France (2e étage), Bouaké</p>
+          <p><a href="mailto:cabinetdentaireivoire@yahoo.fr">cabinetdentaireivoire@yahoo.fr</a> · (+225) 07 07 17 11 17</p>
         </footer>
+
       </div>
     </section>
 
   </main>
 
-  <script src="scrollcraft.js"></script>
-  <script>ScrollCraft.mount(document.body);</script>
-  <script type="module" src="dental-3d.js"></script>
-  <script src="app.js"></script>
+  <script src="scrollcraft.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
-

@@ -1,171 +1,91 @@
 /* ============================================================================
-   styles.css — Cabinet Dentaire Ivoire (Bouaké)
-   Grammar: Clinical Atelier & Active Dossier
-   Palette: Cool Mineral Alabaster + Deep Slate Ink + Surgical Cobalt Accent
+   styles.css — Cabinet Dentaire Ivoire (Refonte v2 · Maison de Soin & Esthétique)
+   Palette : Ivoire Solaire (#FAF6F0) · Travertin Blond (#F1E9DD) · Bronze Champagne (#7A5422)
+   Typographie : Cormorant Garamond (Display) + Plus Jakarta Sans (Texte)
    ========================================================================== */
 
 :root {
-  /* Six core tokens overriding scrollcraft.css floor */
-  --sc-canvas:      #f4f6f9;
-  --sc-surface:     #e8eef5;
-  --sc-ink:         #0e1724;
-  --sc-ink-soft:    #3c4b5e;
-  --sc-accent:      #1352b8;
-  --sc-accent-ink:  #f8faff;
+  /* Six rôles fondamentaux redéfinissant scrollcraft.css */
+  --sc-canvas:      #faf6f0;
+  --sc-surface:     #f1e9dd;
+  --sc-ink:         #1d1611;
+  --sc-ink-soft:    #5c4e41;
+  --sc-accent:      #7a5422;   /* Bronze champagne bruni : contraste 6.6:1 avec #fcf9f4 */
+  --sc-accent-ink:  #fcf9f4;
 
-  --sc-font-display: "Outfit", system-ui, -apple-system, sans-serif;
+  --sc-font-display: "Cormorant Garamond", Georgia, serif;
   --sc-font-text:    "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --sc-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* Light-canvas inversions per worlds.md ("If the canvas is light") */
-  --sc-hairline:        color-mix(in oklab, var(--sc-ink) 11%, transparent);
-  --sc-hairline-strong: color-mix(in oklab, var(--sc-ink) 20%, transparent);
-  --sc-shadow-color:    215 36% 14%;
-  --sc-e1: 0 1px 2px hsl(var(--sc-shadow-color) / 0.06),
-           0 3px 8px -2px hsl(var(--sc-shadow-color) / 0.08);
-  --sc-e2: 0 3px 6px hsl(var(--sc-shadow-color) / 0.07),
-           0 12px 26px -6px hsl(var(--sc-shadow-color) / 0.11);
-  --sc-e3: 0 6px 14px hsl(var(--sc-shadow-color) / 0.08),
-           0 24px 48px -12px hsl(var(--sc-shadow-color) / 0.15);
-  --sc-edge: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+  /* Inversions pour toile claire (worlds.md) */
+  --sc-hairline:        color-mix(in oklab, var(--sc-ink) 12%, transparent);
+  --sc-hairline-strong: color-mix(in oklab, var(--sc-ink) 22%, transparent);
+  --sc-shadow-color:    30 38% 12%;
+  --sc-e1: 0 2px 5px hsl(var(--sc-shadow-color) / 0.06),
+           0 6px 16px -4px hsl(var(--sc-shadow-color) / 0.08);
+  --sc-e2: 0 4px 10px hsl(var(--sc-shadow-color) / 0.07),
+           0 18px 36px -8px hsl(var(--sc-shadow-color) / 0.12);
+  --sc-e3: 0 8px 18px hsl(var(--sc-shadow-color) / 0.09),
+           0 32px 64px -14px hsl(var(--sc-shadow-color) / 0.18);
+  --sc-edge: inset 0 1px 0 rgba(255, 253, 249, 0.92);
 
-  --surface-card: #ffffff;
-  --cobalt-soft:  color-mix(in oklab, var(--sc-accent) 9%, #ffffff);
-  --cobalt-line:  color-mix(in oklab, var(--sc-accent) 24%, transparent);
+  /* Filets et éclats or champagne décoratifs (même teinte 36°, luminosité haute) */
+  --gold-sheen:      #c9a36b;
+  --gold-line:       color-mix(in oklab, #b98e52 34%, transparent);
+  --gold-wash:       color-mix(in oklab, #c9a36b 13%, #fffdf9);
+  --warm-ivory-card: #fffdf9;
 }
 
-/* Subtle fine film grain calibrated for high-key mineral canvas */
-.sc-grain { opacity: 0.026; mix-blend-mode: multiply; }
+/* Grain pellicule très fin adapté à un fond ivoire lumineux */
+.sc-grain { opacity: 0.024; mix-blend-mode: multiply; }
 
-/* Skip link for keyboard accessibility */
+/* Typographie éditoriale Cormorant Garamond : italiques sculptées de la même famille */
+.sc-display {
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 0.98;
+}
+.sc-display em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--sc-accent);
+}
+
+/* Lien d'évitement clavier */
 .skip-link {
   position: fixed;
   top: var(--sc-3);
   left: var(--sc-gutter);
-  z-index: 120;
+  z-index: 140;
   padding: var(--sc-2) var(--sc-4);
   background: var(--sc-accent);
   color: var(--sc-accent-ink);
-  border-radius: var(--sc-r-sm);
+  border-radius: var(--sc-r-pill);
   text-decoration: none;
+  font-size: var(--sc-t-sm);
   font-weight: 600;
-  transform: translateY(-200%);
+  transform: translateY(-220%);
   transition: transform var(--sc-d-fast) var(--sc-ease-out);
 }
 .skip-link:focus,
 .skip-link:focus-visible { transform: translateY(0); }
 
-/* ============================================================================
-   PERSISTENT CLINICAL STATUS & WAYPOINT BAR
-   ========================================================================== */
-.clinic-bar {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: var(--sc-z-chrome);
-  background: color-mix(in oklab, var(--sc-canvas) 88%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--sc-hairline);
-}
-
-.clinic-bar__inner {
-  max-width: var(--sc-maxw);
-  margin-inline: auto;
-  padding: 0.72rem var(--sc-gutter);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sc-4);
-}
-
-.brand-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  text-decoration: none;
-  color: var(--sc-ink);
-}
-.brand-mark__icon {
-  width: 30px;
-  height: 30px;
-  flex: none;
-  border-radius: var(--sc-r-sm);
-  background: var(--sc-accent);
-  color: var(--sc-accent-ink);
-  display: grid;
-  place-items: center;
-  box-shadow: var(--sc-e1);
-}
-.brand-mark__text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.12;
-}
-.brand-mark__name {
-  font-family: var(--sc-font-display);
-  font-weight: 600;
-  font-size: 0.98rem;
-  letter-spacing: -0.015em;
-}
-.brand-mark__city {
-  font-size: 0.74rem;
-  color: var(--sc-ink-soft);
-}
-
-.clinic-bar__nav {
-  display: flex;
-  align-items: center;
-  gap: var(--sc-5);
-}
-.clinic-bar__link {
-  font-size: var(--sc-t-sm);
+.warm-eyebrow {
+  display: inline-block;
+  color: var(--sc-accent);
   font-weight: 500;
-  color: var(--sc-ink-soft);
-  text-decoration: none;
-  transition: color var(--sc-d-fast) var(--sc-ease-out);
-}
-@media (hover: hover) and (pointer: fine) {
-  .clinic-bar__link:hover { color: var(--sc-ink); }
-}
-
-.clinic-bar__right {
-  display: flex;
-  align-items: center;
-  gap: var(--sc-4);
-}
-
-.clinic-hours-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.78rem;
-  color: var(--sc-ink-soft);
-  padding: 0.32rem 0.68rem;
-  border-radius: var(--sc-r-sm);
-  background: color-mix(in oklab, var(--surface-card) 75%, transparent);
-  border: 1px solid var(--sc-hairline);
-  white-space: nowrap;
-}
-.clinic-hours-badge__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #14804a;
-  flex: none;
-}
-.clinic-hours-badge[data-open="false"] .clinic-hours-badge__dot {
-  background: #64748b;
+  letter-spacing: 0.11em;
 }
 
 /* ============================================================================
-   UNIFIED BUTTON SYSTEM (One primary label everywhere: "Prendre rendez-vous")
+   SYSTÈME DE BOUTONS CHAMPAGNE & IVOIRE (Un seul libellé primaire partout)
    ========================================================================== */
-.btn-primary {
+.btn-champagne {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.74rem 1.28rem;
+  padding: 0.78rem 1.45rem;
   background: var(--sc-accent);
   color: var(--sc-accent-ink);
   font-family: var(--sc-font-text);
@@ -175,56 +95,149 @@
   text-decoration: none;
   white-space: nowrap;
   border: 1px solid transparent;
-  border-radius: var(--sc-r-sm);
+  border-radius: var(--sc-r-pill);
   box-shadow: var(--sc-e1);
   cursor: pointer;
-  transition: transform 140ms var(--sc-ease-out), background-color 140ms var(--sc-ease-out), box-shadow 140ms var(--sc-ease-out);
+  transition: transform 150ms var(--sc-ease-out), background-color 150ms var(--sc-ease-out), box-shadow 150ms var(--sc-ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .btn-primary:hover {
-    background: #0f449c;
+  .btn-champagne:hover {
+    background: #634218;
     box-shadow: var(--sc-e2);
   }
 }
-.btn-primary:active { transform: translateY(1px) scale(0.98); }
-.btn-primary--sm { padding: 0.56rem 1rem; font-size: 0.84rem; }
-.btn-primary--lg { padding: 0.92rem 1.55rem; font-size: 0.98rem; }
+.btn-champagne:active { transform: translateY(1px) scale(0.98); }
+.btn-champagne--sm { padding: 0.56rem 1.08rem; font-size: 0.83rem; }
+.btn-champagne--lg { padding: 0.94rem 1.72rem; font-size: 0.96rem; }
 
-.btn-secondary {
+/* Variante deuxième stop d'accent (même teinte or champagne, luminosité claire sur fond expresso) */
+.btn-champagne-light {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  padding: 0.72rem 1.12rem;
-  background: var(--surface-card);
+  padding: 0.84rem 1.55rem;
+  background: #e2bf8a;
+  color: #1c1510;
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--sc-r-pill);
+  border: 1px solid rgba(255, 248, 236, 0.35);
+  cursor: pointer;
+  transition: transform 150ms var(--sc-ease-out), background-color 150ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-champagne-light:hover { background: #edd0a3; }
+}
+.btn-champagne-light:active { transform: translateY(1px) scale(0.98); }
+
+.btn-ghost-warm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.78rem 1.28rem;
+  background: rgba(255, 253, 249, 0.88);
   color: var(--sc-ink);
   font-size: var(--sc-t-sm);
   font-weight: 600;
   line-height: 1.1;
   text-decoration: none;
   white-space: nowrap;
-  border: 1px solid var(--sc-hairline-strong);
-  border-radius: var(--sc-r-sm);
-  box-shadow: var(--sc-edge), var(--sc-e1);
+  border: 1px solid var(--gold-line);
+  border-radius: var(--sc-r-pill);
+  box-shadow: var(--sc-edge);
   cursor: pointer;
-  transition: transform 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out), background-color 140ms var(--sc-ease-out);
+  transition: transform 150ms var(--sc-ease-out), border-color 150ms var(--sc-ease-out), background-color 150ms var(--sc-ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .btn-secondary:hover {
+  .btn-ghost-warm:hover {
     border-color: var(--sc-accent);
-    background: var(--cobalt-soft);
+    background: var(--gold-wash);
   }
 }
-.btn-secondary:active { transform: translateY(1px) scale(0.98); }
+.btn-ghost-warm:active { transform: translateY(1px) scale(0.98); }
+.btn-ghost-warm--sm { padding: 0.56rem 1.05rem; font-size: 0.82rem; }
 
 /* ============================================================================
-   ACT 1: LAYERED ARCHITECTURAL & 3D ENAMEL HERO
-   Planes:
-     1. Far architectural plate (.hero-plane--bg)
-     2. Midground light & architectural frame (.hero-plane--mid)
-     3. Monumental background mark + Semantic copy (.hero-watermark / .hero-copy)
-     4. Real-time 3D Enamel & Titanium Assembly (#hero-3d-stage)
-     5. Near foreground alpha travertine edge (.hero-plane--fg) + floor fade
+   EN-TÊTE FLOTTANT EN DEUX CAPSULES INDÉPENDANTES (Contrasté sur tout fond)
+   ========================================================================== */
+.masthead {
+  position: fixed;
+  top: 0.85rem;
+  inset-inline: var(--sc-gutter);
+  z-index: var(--sc-z-chrome);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-4);
+  pointer-events: none;
+}
+
+.masthead__brand,
+.masthead__capsule {
+  pointer-events: auto;
+  background: rgba(250, 246, 240, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(122, 84, 34, 0.16);
+  box-shadow: var(--sc-edge), var(--sc-e1);
+  color: #1d1611;
+}
+
+.masthead__brand {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0.48rem 1.05rem;
+  border-radius: var(--sc-r-pill);
+  text-decoration: none;
+  line-height: 1.06;
+}
+.masthead__name {
+  font-family: var(--sc-font-display);
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1d1611;
+}
+.masthead__name em {
+  font-style: italic;
+  color: #7a5422;
+}
+.masthead__place {
+  font-size: 0.69rem;
+  color: #5c4e41;
+  letter-spacing: 0.02em;
+}
+
+.masthead__capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-4);
+  padding: 0.34rem 0.38rem 0.34rem 1.15rem;
+  border-radius: var(--sc-r-pill);
+}
+
+.masthead__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-4);
+}
+.masthead__link {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #4b3e33;
+  text-decoration: none;
+  transition: color var(--sc-d-fast) var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .masthead__link:hover { color: #1d1611; }
+}
+
+/* ============================================================================
+   ACTE 1 : HÉROS MULTI-PLANS « L'ÉMOTION DU SOURIRE » (5 plans indépendants)
    ========================================================================== */
 .hero-stage {
   background: var(--sc-canvas);
@@ -235,7 +248,7 @@
   pointer-events: none;
 }
 
-/* Plane 1: Far environment plate */
+/* Plan 1 : Fond architectural travertin & lin */
 .hero-plane--bg {
   inset: -12% -4%;
   z-index: 1;
@@ -245,112 +258,80 @@
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: 68% center;
-  transform: translate3d(calc(var(--hero-px, 0) * -8px), calc(var(--hero-py, 0) * -6px), 0);
+  object-position: 65% center;
+  transform: translate3d(calc(var(--hero-px, 0) * -9px), calc(var(--hero-py, 0) * -6px), 0);
 }
 
-/* Plane 2: Midground raking morning light & architectural depth lines */
-.hero-plane--mid {
-  inset: -8% 0;
+/* Plan 2 : Rayonnement solaire matinal doré */
+.hero-plane--sun {
+  inset: -10% 0;
   z-index: 2;
   background:
-    linear-gradient(112deg,
-      rgba(244, 246, 249, 0.72) 0%,
-      rgba(244, 246, 249, 0.25) 46%,
-      rgba(255, 252, 244, 0.34) 68%,
-      transparent 88%);
-}
-.hero-mid-frame {
-  position: absolute;
-  right: clamp(6%, 11vw, 14%);
-  top: 13%;
-  bottom: 12%;
-  width: min(38vw, 34rem);
-  border: 1px solid rgba(14, 23, 36, 0.08);
-  border-radius: var(--sc-r-lg);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.38), rgba(232, 238, 245, 0.12));
-  box-shadow: var(--sc-edge);
+    radial-gradient(55% 65% at 74% 28%, rgba(255, 241, 212, 0.56) 0%, rgba(250, 246, 240, 0.0) 70%);
 }
 
-/* Architectural depth word behind the 3D focal object (occluded by Plane 4!) */
-.hero-depth-word {
+/* Plan 3 : Marque typographique géante en profondeur (occultée par l'arche portrait !) */
+.hero-depth-mark {
   position: absolute;
   z-index: 3;
-  right: clamp(3%, 7vw, 10%);
-  top: 20%;
+  right: clamp(4%, 8vw, 12%);
+  top: 16%;
   font-family: var(--sc-font-display);
-  font-weight: 600;
-  font-size: clamp(5rem, 13vw, 12.5rem);
-  line-height: 0.86;
-  letter-spacing: -0.045em;
-  color: color-mix(in oklab, var(--sc-ink) 7%, transparent);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(6.5rem, 16vw, 15.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+  color: rgba(122, 84, 34, 0.11);
   user-select: none;
   pointer-events: none;
 }
 
-/* Sibling scrim protecting left-side copy (NEVER a child of data-sc-cue!) */
-.hero-copy-scrim {
+/* Voile frère soyeux protégeant le texte à gauche */
+.hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
   background: linear-gradient(
-    96deg,
-    rgba(244, 246, 249, 0.97) 0%,
-    rgba(244, 246, 249, 0.95) 38%,
-    rgba(244, 246, 249, 0.72) 54%,
-    rgba(244, 246, 249, 0.0) 68%
+    94deg,
+    rgba(250, 246, 240, 0.98) 0%,
+    rgba(250, 246, 240, 0.95) 40%,
+    rgba(250, 246, 240, 0.72) 55%,
+    rgba(250, 246, 240, 0.0) 70%
   );
 }
 
-/* Plane 4: Focal 3D Ivory Molar & Titanium Implant Assembly */
-.hero-3d-wrap {
+/* Plan 4 : Portrait sourire radieux dans son arche sculptée (RGBA véritable) */
+.hero-portrait-wrap {
   position: absolute;
   z-index: 6;
-  right: clamp(2%, 7vw, 9%);
-  top: 11%;
-  bottom: 9%;
-  width: min(44vw, 38rem);
-  display: grid;
-  place-items: center;
+  right: clamp(4%, 7.5vw, 11%);
+  top: 12%;
+  bottom: 4%;
+  width: min(39vw, 33rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   pointer-events: none;
 }
-.hero-3d-wrap canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.webgl-poster {
-  position: absolute;
-  inset: 0;
+.hero-portrait-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  pointer-events: none;
-  transition: opacity 260ms var(--sc-ease-out);
-}
-.is-webgl-live .webgl-poster { opacity: 0; }
-.is-fallback canvas { display: none; }
-.is-fallback .webgl-poster { opacity: 1; }
-
-.hero-contact-shadow {
-  position: absolute;
-  bottom: 11%;
-  left: 50%;
-  width: 52%;
-  height: 28px;
-  translate: -50% 0;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(14, 23, 36, 0.16), transparent 78%);
-  pointer-events: none;
+  object-position: center bottom;
+  transform-origin: 50% 100%;
+  transform:
+    translate3d(calc(var(--hero-px, 0) * 5px), calc(var(--hero-py, 0) * 4px), 0)
+    scale(calc(1 + var(--sc-p, 0) * 0.045));
 }
 
-/* Plane 5: Near foreground genuine alpha travertine architectural column edge */
+/* Plan 5 : Premier plan flouté en verre champagne et colonne travertin (RGBA véritable) */
 .hero-plane--fg {
-  right: -2%;
-  top: -6%;
+  right: -3%;
+  top: -8%;
   bottom: -10%;
-  width: min(24vw, 21rem);
+  width: min(25vw, 22rem);
   z-index: 8;
 }
 .hero-plane--fg img {
@@ -359,45 +340,44 @@
   max-width: none;
   object-fit: cover;
   object-position: left center;
-  transform: translate3d(calc(var(--hero-px, 0) * 11px), calc(var(--hero-py, 0) * 7px), 0);
+  transform: translate3d(calc(var(--hero-px, 0) * 14px), calc(var(--hero-py, 0) * 8px), 0);
 }
 
-/* Section floor gradient hiding plane bottom edges cleanly (devices.md §6) */
+/* Fondu de pied de scène masquant toute coupe basse des plans */
 .hero-floor-fade {
   position: absolute;
   inset: auto 0 0 0;
-  height: 180px;
+  height: 140px;
   z-index: 9;
   pointer-events: none;
-  background: linear-gradient(to top, var(--sc-canvas) 0%, rgba(244, 246, 249, 0.76) 42%, transparent 100%);
+  background: linear-gradient(to top, var(--sc-canvas) 0%, rgba(250, 246, 240, 0.78) 46%, transparent 100%);
 }
 
-/* Plane 3 (Interactive Foreground Copy Layer, z-index 20 via .sc-copy) */
-.hero-copy-block {
+/* Texte sémantique au premier plan éditorial */
+.hero-copy {
   position: absolute;
   z-index: var(--sc-z-copy);
   left: var(--sc-gutter);
-  bottom: clamp(3.4rem, 13vh, 8.5rem);
-  width: min(35rem, 50vw);
+  bottom: clamp(3.6rem, 13vh, 8.2rem);
+  width: min(37rem, 50vw);
 }
 
 .hero-title {
-  font-size: clamp(2.45rem, 1.75rem + 3.1vw, 4.35rem);
-  line-height: 1.01;
-  letter-spacing: -0.032em;
+  font-size: clamp(2.85rem, 2rem + 3.8vw, 5.1rem);
+  line-height: 0.96;
   color: var(--sc-ink);
-  max-width: 14ch;
+  max-width: 15ch;
 }
 
-.hero-sub {
-  margin-top: var(--sc-4);
+.hero-lead {
+  margin-top: var(--sc-5);
   font-size: var(--sc-t-base);
-  line-height: 1.58;
+  line-height: 1.62;
   color: var(--sc-ink-soft);
-  max-width: 44ch;
+  max-width: 45ch;
 }
 
-.hero-actions {
+.hero-cta-row {
   margin-top: var(--sc-6);
   display: flex;
   flex-wrap: wrap;
@@ -405,786 +385,984 @@
   gap: var(--sc-3);
 }
 
-.hero-beat2-card {
-  padding: var(--sc-5) var(--sc-6);
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid var(--sc-hairline-strong);
-  border-radius: var(--sc-r-md);
-  box-shadow: var(--sc-edge), var(--sc-e2);
-  max-width: 31rem;
+/* Deuxième temps du héros : éditorial ouvert (filet vertical champagne, zéro boîte lourde) */
+.hero-editorial-whisper {
+  padding-left: var(--sc-5);
+  border-left: 2px solid var(--gold-sheen);
+  max-width: 32rem;
 }
-.hero-beat2-title {
-  font-family: var(--sc-font-display);
-  font-size: var(--sc-t-xl);
-  font-weight: 600;
-  line-height: 1.14;
-  letter-spacing: -0.02em;
-  color: var(--sc-ink);
+.hero-whisper__heading {
   margin: 0;
+  font-family: var(--sc-font-display);
+  font-size: clamp(1.85rem, 1.4rem + 1.6vw, 2.65rem);
+  font-weight: 500;
+  line-height: 1.06;
+  color: var(--sc-ink);
 }
-.hero-beat2-body {
+.hero-whisper__body {
   margin: var(--sc-3) 0 0 0;
-  color: var(--sc-ink-soft);
   font-size: var(--sc-t-base);
-  line-height: 1.58;
+  line-height: 1.62;
+  color: var(--sc-ink-soft);
 }
 
 /* ============================================================================
-   ACT 2: QUIET INTIMACY & REASSURANCE (Unpinned Flow + Reveal)
-   Reduced top padding right after pinned Act 1 per devices.md §8!
+   ACTE 2 : LA MAISON DE SOIN (Double page magazine sans cartes encadrées)
+   Padding supérieur réduit après l'acte épinglé 1 (devices.md §8)
    ========================================================================== */
-.reassurance-section {
-  padding-top: clamp(2.5rem, 5vw, 5rem);
-  padding-bottom: clamp(4.5rem, 8vw, 8.5rem);
+.sanctuary-act {
+  padding-top: clamp(3rem, 5.5vw, 5.5rem);
+  padding-bottom: clamp(5rem, 9vw, 9.5rem);
 }
 
-.reassurance-grid {
+.sanctuary-spread {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  gap: clamp(2rem, 5vw, 5.5rem);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2.5rem, 6vw, 6.5rem);
   align-items: center;
 }
 
-.reassurance-prose h2 {
-  color: var(--sc-ink);
-  max-width: 16ch;
-}
-
-.reassurance-prose p {
-  font-size: var(--sc-t-base);
-  line-height: 1.68;
-  color: var(--sc-ink-soft);
-  max-width: 56ch;
-}
-
-.reassurance-facts {
-  margin-top: var(--sc-6);
-  padding-top: var(--sc-5);
-  border-top: 1px solid var(--sc-hairline);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sc-5);
-}
-
-.fact-item__title {
-  font-family: var(--sc-font-display);
-  font-weight: 600;
-  font-size: 1.02rem;
-  color: var(--sc-ink);
+.sanctuary-figure {
   margin: 0;
 }
-.fact-item__desc {
-  margin: var(--sc-1) 0 0 0;
-  font-size: var(--sc-t-sm);
-  line-height: 1.52;
-  color: var(--sc-ink-soft);
-}
-
-.reassurance-figure {
-  margin: 0;
-}
-.reassurance-figure__frame {
-  border-radius: var(--sc-r-lg);
+.sanctuary-figure__frame {
+  border-radius: 260px 260px var(--sc-r-lg) var(--sc-r-lg);
   overflow: hidden;
   box-shadow: var(--sc-e2);
-  border: 1px solid var(--sc-hairline);
   background: var(--sc-surface);
 }
-.reassurance-figure__frame img {
+.sanctuary-figure__frame img {
   width: 100%;
   height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
 }
-.reassurance-figure figcaption {
+.sanctuary-figure figcaption {
   margin-top: var(--sc-3);
   font-size: var(--sc-t-xs);
   color: var(--sc-ink-soft);
 }
 
-/* ============================================================================
-   ACT 3: THE PEAK & SIGNATURE MOVE — 3D RADIOSCOPY SCANNER
-   Largest scroll span on the page (3.6vh).
-   ========================================================================== */
-.scanner-stage {
-  display: flex;
-  align-items: center;
-  padding-top: 3.6rem;
+.section-heading {
+  font-size: clamp(2.35rem, 1.75rem + 2.8vw, 3.85rem);
+  line-height: 0.99;
+  color: var(--sc-ink);
+  max-width: 16ch;
+  margin-top: var(--sc-3);
 }
 
-.scanner-shell {
-  width: 100%;
-  max-width: var(--sc-maxw);
-  margin-inline: auto;
-  padding-inline: var(--sc-gutter);
+.editorial-para {
+  margin: var(--sc-4) 0 0 0;
+  font-size: var(--sc-t-base);
+  line-height: 1.68;
+  color: var(--sc-ink-soft);
+  max-width: 54ch;
+}
+
+.sanctuary-pillars {
+  margin: var(--sc-7) 0 0 0;
+  border-top: 1px solid var(--gold-line);
+}
+.pillar-row {
+  padding-block: var(--sc-4);
+  border-bottom: 1px solid var(--sc-hairline);
   display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  gap: clamp(1.5rem, 3.8vw, 4rem);
-  align-items: center;
+  grid-template-columns: minmax(9.5rem, 0.38fr) minmax(0, 0.62fr);
+  gap: var(--sc-4);
+  align-items: baseline;
+}
+.pillar-row dt {
+  font-family: var(--sc-font-display);
+  font-size: 1.32rem;
+  font-weight: 600;
+  color: var(--sc-ink);
+}
+.pillar-row dd {
+  margin: 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.56;
+  color: var(--sc-ink-soft);
 }
 
-/* Left: Clinical Radioscopy 3D Viewport Chamber */
-.scanner-viewport {
-  position: relative;
-  height: min(68svh, 36rem);
-  border-radius: var(--sc-r-lg);
-  background:
-    radial-gradient(85% 75% at 50% 46%, #ffffff 0%, #eaf0f8 62%, #dde7f4 100%);
-  border: 1px solid var(--sc-hairline-strong);
-  box-shadow: var(--sc-edge), var(--sc-e3);
-  overflow: hidden;
+/* ============================================================================
+   ACTE 3 : SÉQUENCE STUDIO MACRO PHOTORÉALISTE (Écrin Expresso & Or Champagne)
+   Redéclaration explicite de color: var(--sc-ink) conformément à taste.md
+   ========================================================================== */
+.dark-cinema-act {
+  --sc-canvas:    #18120e;
+  --sc-surface:   #241c16;
+  --sc-ink:       #faf5ed;
+  --sc-ink-soft:  #dfd3c3;
+  color: var(--sc-ink);
+  background: #18120e;
 }
 
-/* Subtle calibrated clinical grid reticle inside scanner chamber */
-.scanner-viewport::before {
-  content: "";
+.cinema-stage {
+  background: #18120e;
+}
+
+/* Voile frère orienté vers la colonne gauche sur grand écran */
+.cinema-scrim {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, rgba(19, 82, 184, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(19, 82, 184, 0.055) 1px, transparent 1px);
-  background-size: 36px 36px;
-}
-
-.scanner-viewport canvas {
-  position: relative;
   z-index: 2;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.scanner-hud-top,
-.scanner-hud-bottom {
-  position: absolute;
-  inset-inline: var(--sc-4);
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sc-3);
   pointer-events: none;
-}
-.scanner-hud-top { top: var(--sc-4); }
-.scanner-hud-bottom { bottom: var(--sc-4); }
-
-.scanner-readout {
-  font-family: var(--sc-font-mono);
-  font-size: 0.74rem;
-  font-weight: 500;
-  color: var(--sc-ink);
-  background: rgba(255, 255, 255, 0.9);
-  padding: 0.28rem 0.62rem;
-  border-radius: var(--sc-r-sm);
-  border: 1px solid var(--sc-hairline);
+  background: linear-gradient(
+    96deg,
+    rgba(20, 15, 11, 0.94) 0%,
+    rgba(20, 15, 11, 0.88) 34%,
+    rgba(20, 15, 11, 0.42) 56%,
+    rgba(20, 15, 11, 0.08) 78%
+  );
 }
 
-/* Scroll-synced phase note inside scanner bottom HUD */
-.scanner-phase-cue {
+.cinema-copy {
   position: absolute;
-  left: var(--sc-4);
-  bottom: var(--sc-4);
-  z-index: 5;
-  background: rgba(255, 255, 255, 0.94);
-  color: var(--sc-ink);
-  padding: 0.34rem 0.7rem;
-  border-radius: var(--sc-r-sm);
-  border: 1px solid var(--sc-hairline);
-  font-size: 0.78rem;
-  font-weight: 500;
+  z-index: var(--sc-z-copy);
+  left: var(--sc-gutter);
+  bottom: clamp(4rem, 14vh, 8.5rem);
+  width: min(34rem, 46vw);
+  color: #faf5ed;
 }
 
-/* Right: Interactive Need Selector & Plain-French Diagnostic Card */
-.scanner-panel {
-  background: var(--surface-card);
-  border: 1px solid var(--sc-hairline-strong);
-  border-radius: var(--sc-r-lg);
-  padding: clamp(1.25rem, 2.5vw, 2.1rem);
-  box-shadow: var(--sc-edge), var(--sc-e2);
-  color: var(--sc-ink);
+.cinema-heading {
+  font-size: clamp(2.3rem, 1.7rem + 2.6vw, 3.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: #faf5ed;
+  max-width: 16ch;
+}
+.cinema-heading em {
+  color: #e2bf8a;
 }
 
-.scanner-panel__eyebrow {
-  display: inline-block;
-  margin-bottom: var(--sc-2);
-  color: var(--sc-accent);
-  font-weight: 600;
+.cinema-body {
+  margin: var(--sc-4) 0 0 0;
+  font-size: var(--sc-t-base);
+  line-height: 1.66;
+  letter-spacing: 0.005em;
+  color: #e4d9ca;
+  max-width: 46ch;
 }
 
-.scanner-panel h2 {
-  font-size: clamp(1.65rem, 1.3rem + 1.5vw, 2.35rem);
-  line-height: 1.08;
-  color: var(--sc-ink);
-}
-
-.scanner-panel__intro {
-  margin-top: var(--sc-2);
-  font-size: var(--sc-t-sm);
-  color: var(--sc-ink-soft);
-  line-height: 1.5;
-}
-
-.zone-tabs {
-  margin-top: var(--sc-4);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.zone-tab {
-  padding: 0.48rem 0.82rem;
-  border-radius: var(--sc-r-sm);
-  border: 1px solid var(--sc-hairline-strong);
-  background: var(--sc-canvas);
-  color: var(--sc-ink);
-  font-size: 0.83rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 140ms var(--sc-ease-out), color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out), transform 120ms var(--sc-ease-out);
-}
-@media (hover: hover) and (pointer: fine) {
-  .zone-tab:hover {
-    border-color: var(--sc-accent);
-    background: var(--cobalt-soft);
-  }
-}
-.zone-tab:active { transform: scale(0.98); }
-.zone-tab[aria-selected="true"] {
-  background: var(--sc-accent);
-  color: var(--sc-accent-ink);
-  border-color: var(--sc-accent);
-}
-
-.zone-detail {
-  margin-top: var(--sc-4);
-  padding-top: var(--sc-4);
-  border-top: 1px solid var(--sc-hairline);
-}
-
-.zone-detail__title {
-  font-family: var(--sc-font-display);
-  font-size: 1.18rem;
-  font-weight: 600;
-  color: var(--sc-ink);
-  margin: 0;
-}
-
-.zone-detail__body {
-  margin: var(--sc-2) 0 0 0;
-  font-size: var(--sc-t-sm);
-  line-height: 1.6;
-  color: var(--sc-ink-soft);
-}
-
-.zone-detail__meta {
-  margin-top: var(--sc-3);
-  padding: 0.55rem 0.78rem;
-  background: var(--cobalt-soft);
-  border: 1px solid var(--cobalt-line);
-  border-radius: var(--sc-r-sm);
-  font-size: 0.82rem;
-  color: var(--sc-ink);
-}
-
-.zone-detail__footer {
-  margin-top: var(--sc-4);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sc-3);
-}
-
-.dossier-sync-note {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--sc-accent);
+.cinema-cta {
+  margin-top: var(--sc-5);
 }
 
 /* ============================================================================
-   ACT 4: LATERAL CARE GALLERY RAIL (pan + tilt)
+   ACTE 4 : GALERIE LOOKBOOK GRAND FORMAT (pan + tilt, zéro carte enfermée)
    ========================================================================== */
-.care-pan-stage {
+.lookbook-stage {
   display: flex;
   align-items: center;
-  padding-top: 3.2rem;
+  padding-top: 3.4rem;
+  background: #f5eee4;
 }
 
-.care-rail {
+.lookbook-rail {
   display: flex;
-  align-items: stretch;
-  gap: clamp(1.25rem, 2.2vw, 2rem);
+  align-items: flex-start;
+  gap: clamp(1.75rem, 3vw, 3rem);
   padding-inline: var(--sc-gutter);
   width: max-content;
 }
 
-.care-rail__lead {
-  width: clamp(18rem, 24vw, 23rem);
+.lookbook-intro {
+  width: clamp(19rem, 25vw, 24.5rem);
   flex: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding-top: var(--sc-5);
   padding-right: var(--sc-3);
 }
-.care-rail__lead h2 {
-  color: var(--sc-ink);
+.lookbook-intro .section-heading {
+  margin-top: 0;
 }
-.care-rail__lead p {
-  margin-top: var(--sc-3);
+.lookbook-intro__text {
+  margin-top: var(--sc-4);
+  font-size: var(--sc-t-base);
+  line-height: 1.62;
   color: var(--sc-ink-soft);
 }
 
-.care-card {
-  width: clamp(17.5rem, 22vw, 21.5rem);
+.lookbook-plate {
+  width: clamp(18.5rem, 23vw, 22.5rem);
   flex: none;
-  background: var(--surface-card);
-  border: 1px solid var(--sc-hairline);
-  border-radius: var(--sc-r-md);
-  padding: var(--sc-4);
-  box-shadow: var(--sc-edge), var(--sc-e1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
-.care-card__media {
-  border-radius: var(--sc-r-sm);
+.lookbook-plate__media {
+  border-radius: var(--sc-r-lg);
   overflow: hidden;
   background: var(--sc-surface);
-  aspect-ratio: 4 / 3;
+  box-shadow: var(--sc-e2);
+  aspect-ratio: 4 / 4.6;
 }
-.care-card__media img {
+.lookbook-plate__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.care-card h3 {
-  margin: var(--sc-4) 0 0 0;
+.lookbook-plate__caption {
+  margin-top: var(--sc-4);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sc-3);
+  align-items: start;
+}
+
+.lookbook-num {
   font-family: var(--sc-font-display);
-  font-size: 1.32rem;
+  font-style: italic;
+  font-size: 1.55rem;
+  line-height: 1;
+  color: var(--sc-accent);
+  padding-top: 0.1rem;
+}
+
+.lookbook-plate h3 {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-size: 1.5rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
   color: var(--sc-ink);
 }
 
-.care-card p {
+.lookbook-plate p {
   margin: var(--sc-2) 0 0 0;
   font-size: var(--sc-t-sm);
   line-height: 1.56;
   color: var(--sc-ink-soft);
 }
 
-.care-card__pick {
-  margin-top: var(--sc-4);
-  align-self: flex-start;
+.intent-link {
+  margin-top: var(--sc-3);
   background: none;
   border: 0;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--sc-accent);
-  cursor: pointer;
   text-decoration: underline;
-  text-underline-offset: 0.24em;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
 }
 
-.care-card--close {
-  background: var(--cobalt-soft);
-  border-color: var(--cobalt-line);
-  justify-content: center;
+.lookbook-endnote {
+  width: clamp(18.5rem, 23vw, 22rem);
+  flex: none;
+  align-self: stretch;
   padding: var(--sc-6);
+  border-left: 1px solid var(--gold-line);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-
-/* Staggered arrival settle driven from --sc-p (devices.md §3) */
-@media (prefers-reduced-motion: no-preference) {
-  .care-rail > .care-card {
-    opacity: clamp(0.65, calc(0.65 + var(--sc-p, 0) * 0.8), 1);
-  }
+.lookbook-endnote__label {
+  margin: 0;
+  font-family: var(--sc-font-mono);
+  font-size: var(--sc-t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--sc-accent);
 }
-
-/* ============================================================================
-   ACT 5: ACTIVE CONSULTATION & GRAND BAZAR ACCESS DESK (Resolved Close)
-   ========================================================================== */
-.desk-section {
-  padding-top: clamp(3rem, 6vw, 6rem);
-  padding-bottom: clamp(3rem, 6vw, 5rem);
-  border-top: 1px solid var(--sc-hairline);
-  background: var(--sc-canvas);
-}
-
-.desk-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
-  gap: clamp(1.75rem, 4vw, 4rem);
-  align-items: start;
-}
-
-.dossier-box,
-.location-box {
-  background: var(--surface-card);
-  border: 1px solid var(--sc-hairline-strong);
-  border-radius: var(--sc-r-lg);
-  padding: clamp(1.4rem, 3vw, 2.4rem);
-  box-shadow: var(--sc-edge), var(--sc-e2);
-}
-
-.dossier-box h2,
-.location-box h2 {
-  font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.2rem);
+.lookbook-endnote h3 {
+  margin: var(--sc-3) 0 0 0;
+  font-family: var(--sc-font-display);
+  font-size: 1.85rem;
+  font-weight: 500;
+  line-height: 1.06;
   color: var(--sc-ink);
 }
-
-.dossier-lead {
-  margin-top: var(--sc-2);
+.lookbook-endnote p {
+  margin: var(--sc-3) 0 var(--sc-5) 0;
   font-size: var(--sc-t-sm);
+  line-height: 1.6;
   color: var(--sc-ink-soft);
 }
 
-.dossier-form {
+/* ============================================================================
+   ACTE 5 : LE PIC & MOUVEMENT SIGNATURE — LE RIDEAU D'ÉCLAT IVOIRE
+   ========================================================================== */
+.eclat-stage {
+  display: flex;
+  align-items: center;
+  padding-top: 3.8rem;
+  background: #ede2d2;
+}
+
+.eclat-layout {
+  width: 100%;
+  max-width: var(--sc-maxw);
+  margin-inline: auto;
+  padding-inline: var(--sc-gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(2rem, 4.5vw, 4.8rem);
+  align-items: center;
+}
+
+.eclat-loupe {
+  position: relative;
+  aspect-ratio: 16 / 10.5;
+  max-height: 66svh;
+  width: 100%;
+  border-radius: var(--sc-r-lg);
+  overflow: hidden;
+  box-shadow: var(--sc-e3);
+  border: 1px solid var(--gold-line);
+  background: #2b211a;
+  --curtain-pos: 78%;
+}
+
+.eclat-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  user-select: none;
+  pointer-events: none;
+}
+
+.eclat-before-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  clip-path: inset(0 calc(100% - var(--curtain-pos, 78%)) 0 0);
+  will-change: clip-path;
+  pointer-events: none;
+}
+
+.eclat-curtain-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--curtain-pos, 78%);
+  z-index: 4;
+  width: 2px;
+  translate: -50% 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 248, 232, 0.4) 0%,
+    #e6c590 50%,
+    rgba(255, 248, 232, 0.4) 100%
+  );
+  box-shadow: 0 0 18px rgba(230, 197, 144, 0.65);
+  pointer-events: none;
+}
+
+.eclat-curtain-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(250, 246, 240, 0.95);
+  color: #7a5422;
+  border: 1.5px solid #c9a36b;
+  box-shadow: var(--sc-e2);
+  display: grid;
+  place-items: center;
+}
+
+.eclat-badge {
+  position: absolute;
+  bottom: var(--sc-3);
+  z-index: 5;
+  padding: 0.3rem 0.72rem;
+  border-radius: var(--sc-r-pill);
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: rgba(26, 20, 15, 0.76);
+  color: #faf5ed;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+.eclat-badge--left { left: var(--sc-3); }
+.eclat-badge--right { right: var(--sc-3); }
+
+/* Curseur natif couvrant le cadre pour glisser librement à la souris, au doigt ou au clavier */
+.eclat-range-input {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+.eclat-loupe:has(.eclat-range-input:focus-visible) {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 4px;
+}
+
+.eclat-editorial {
+  color: var(--sc-ink);
+}
+
+.eclat-heading {
+  font-size: clamp(2.05rem, 1.55rem + 2.1vw, 3.15rem);
+  line-height: 1.01;
+  color: var(--sc-ink);
+  margin-top: var(--sc-2);
+}
+
+.eclat-lead {
+  margin: var(--sc-3) 0 0 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.58;
+  color: var(--sc-ink-soft);
+}
+
+.intent-pills {
+  margin-top: var(--sc-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.intent-pill {
+  padding: 0.48rem 0.92rem;
+  border-radius: var(--sc-r-pill);
+  border: 1px solid var(--gold-line);
+  background: rgba(255, 253, 249, 0.78);
+  color: var(--sc-ink);
+  font-size: 0.83rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 140ms var(--sc-ease-out), color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .intent-pill:hover {
+    border-color: var(--sc-accent);
+    background: var(--warm-ivory-card);
+  }
+}
+.intent-pill[aria-selected="true"] {
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  border-color: var(--sc-accent);
+}
+
+.intent-story {
+  margin-top: var(--sc-4);
+  padding-top: var(--sc-4);
+  border-top: 1px solid var(--gold-line);
+}
+.intent-story__title {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-size: 1.42rem;
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--sc-ink);
+}
+.intent-story__body {
+  margin: var(--sc-2) 0 0 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.6;
+  color: var(--sc-ink-soft);
+}
+.intent-story__sync {
+  margin: var(--sc-3) 0 0 0;
+  font-size: 0.81rem;
+  font-weight: 600;
+  color: var(--sc-accent);
+}
+
+.eclat-cta-row {
+  margin-top: var(--sc-4);
+}
+
+/* ============================================================================
+   ACTE 6 : CONCIERGERIE WHATSAPP & TABLE D'ORIENTATION GRAND BAZAR
+   ========================================================================== */
+.concierge-act {
+  padding-top: clamp(4rem, 7vw, 7rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+  border-top: 1px solid var(--gold-line);
+}
+
+.concierge-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.concierge-composer .section-heading {
+  margin-top: 0;
+}
+
+.concierge-sub {
+  margin: var(--sc-3) 0 0 0;
+  font-size: var(--sc-t-base);
+  line-height: 1.6;
+  color: var(--sc-ink-soft);
+  max-width: 50ch;
+}
+
+.concierge-form {
+  margin-top: var(--sc-6);
+  display: grid;
+  gap: var(--sc-5);
+}
+
+.chip-fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.chip-legend {
+  padding: 0;
+  margin-bottom: var(--sc-3);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--sc-ink);
+}
+
+.choice-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.choice-chip {
+  padding: 0.52rem 0.98rem;
+  border-radius: var(--sc-r-pill);
+  border: 1px solid var(--sc-hairline-strong);
+  background: var(--warm-ivory-card);
+  color: var(--sc-ink);
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 140ms var(--sc-ease-out), color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .choice-chip:hover { border-color: var(--sc-accent); }
+}
+.choice-chip.is-active {
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  border-color: var(--sc-accent);
+}
+
+.concierge-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sc-4);
+}
+
+.minimal-field {
+  display: grid;
+  gap: 0.35rem;
+}
+.minimal-field label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--sc-ink);
+}
+.opt-tag {
+  font-weight: 400;
+  color: var(--sc-ink-soft);
+}
+.minimal-field input {
+  width: 100%;
+  padding: 0.68rem 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--sc-hairline-strong);
+  border-radius: 0;
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink);
+  transition: border-color 150ms var(--sc-ease-out);
+}
+.minimal-field input:focus {
+  outline: none;
+  border-bottom-color: var(--sc-accent);
+}
+
+.wa-whisper {
+  padding: var(--sc-4) var(--sc-5);
+  border-left: 2px solid var(--gold-sheen);
+  background: var(--gold-wash);
+  border-radius: 0 var(--sc-r-md) var(--sc-r-md) 0;
+}
+.wa-whisper__label {
+  display: block;
+  font-family: var(--sc-font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sc-accent);
+}
+.wa-whisper__body {
+  margin: 0.35rem 0 0 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--sc-ink);
+}
+
+.concierge-cta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sc-3);
+}
+
+.concierge-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-5);
+}
+.utility-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--sc-ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.24em;
+  cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  .utility-link:hover { color: var(--sc-accent); }
+}
+
+.concierge-toast {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border-radius: var(--sc-r-sm);
+  background: #f2ebe0;
+  border: 1px solid var(--gold-line);
+  color: var(--sc-ink);
+  font-size: 0.85rem;
+}
+.concierge-toast[hidden] { display: none; }
+
+/* Colonne d'orientation architecturale en travertin chaud */
+.address-plaque {
+  padding: clamp(1.75rem, 3.5vw, 2.8rem);
+  border-radius: var(--sc-r-lg);
+  background: var(--sc-surface);
+  border: 1px solid var(--gold-line);
+  box-shadow: var(--sc-edge);
+}
+
+.live-hours-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.32rem 0.78rem;
+  border-radius: var(--sc-r-pill);
+  background: var(--warm-ivory-card);
+  border: 1px solid var(--gold-line);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--sc-ink);
+}
+.live-hours-pill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #b5894c;
+  flex: none;
+}
+.live-hours-pill[data-open="true"]::before {
+  background: #2e7d52;
+}
+
+.address-heading {
+  font-size: clamp(2rem, 1.5rem + 2vw, 2.85rem);
+  line-height: 1.02;
+  color: var(--sc-ink);
+  margin-top: var(--sc-2);
+}
+
+.address-ledger {
   margin-top: var(--sc-5);
   display: grid;
   gap: var(--sc-4);
 }
-
-.field-group {
-  display: grid;
-  gap: 0.42rem;
-}
-.field-label {
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--sc-ink);
-}
-
-.field-input,
-.field-select {
-  width: 100%;
-  padding: 0.68rem 0.85rem;
-  border-radius: var(--sc-r-sm);
-  border: 1px solid var(--sc-hairline-strong);
-  background: var(--sc-canvas);
-  color: var(--sc-ink);
-  font-size: var(--sc-t-sm);
-}
-.field-input:focus,
-.field-select:focus {
-  border-color: var(--sc-accent);
-  background: #ffffff;
-}
-
-.field-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sc-3);
-}
-
-.wa-preview {
-  padding: var(--sc-3) var(--sc-4);
-  border-radius: var(--sc-r-sm);
-  background: var(--cobalt-soft);
-  border: 1px solid var(--cobalt-line);
-}
-.wa-preview__label {
-  font-size: 0.74rem;
-  font-weight: 600;
-  color: var(--sc-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.wa-preview__text {
-  margin: 0.35rem 0 0 0;
-  font-size: 0.86rem;
-  line-height: 1.5;
-  color: var(--sc-ink);
-}
-
-.dossier-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sc-3);
-  align-items: center;
-}
-
-.dossier-utilities {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sc-4);
-  padding-top: var(--sc-2);
-}
-
-.text-action-btn {
-  background: none;
-  border: 0;
-  padding: 0;
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--sc-ink-soft);
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
-  cursor: pointer;
-}
-@media (hover: hover) and (pointer: fine) {
-  .text-action-btn:hover { color: var(--sc-accent); }
-}
-
-.dossier-feedback {
-  margin: 0;
-  padding: 0.68rem 0.9rem;
-  border-radius: var(--sc-r-sm);
-  background: #ecfdf3;
-  border: 1px solid #abefc6;
-  color: #084c2e;
-  font-size: 0.84rem;
-  line-height: 1.45;
-}
-.dossier-feedback[hidden] { display: none; }
-
-/* Landmark & Map Column */
-.landmark-list {
-  margin: var(--sc-4) 0 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: var(--sc-3);
-}
-.landmark-list li {
-  padding-bottom: var(--sc-3);
+.ledger-item {
+  padding-bottom: var(--sc-4);
   border-bottom: 1px solid var(--sc-hairline);
-  font-size: var(--sc-t-sm);
-  color: var(--sc-ink-soft);
 }
-.landmark-list li:last-child { border-bottom: 0; padding-bottom: 0; }
-.landmark-list__key {
+.ledger-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.ledger-key {
   display: block;
-  font-weight: 600;
+  font-family: var(--sc-font-mono);
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sc-accent);
+  margin-bottom: 0.3rem;
+}
+.ledger-item p {
+  margin: 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.58;
   color: var(--sc-ink);
-  margin-bottom: 0.15rem;
 }
 
-.direct-phones {
+.phone-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sc-2);
+  gap: 0.5rem;
   margin-top: 0.35rem;
 }
-.phone-pill {
+.phone-chip {
   display: inline-flex;
   align-items: center;
-  padding: 0.36rem 0.68rem;
-  border-radius: var(--sc-r-sm);
-  background: var(--sc-canvas);
-  border: 1px solid var(--sc-hairline-strong);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--sc-r-pill);
+  background: var(--warm-ivory-card);
+  border: 1px solid var(--gold-line);
   color: var(--sc-ink);
-  font-weight: 600;
   font-size: 0.84rem;
+  font-weight: 600;
   text-decoration: none;
 }
 @media (hover: hover) and (pointer: fine) {
-  .phone-pill:hover { border-color: var(--sc-accent); color: var(--sc-accent); }
+  .phone-chip:hover { border-color: var(--sc-accent); color: var(--sc-accent); }
 }
 
-.bouake-map-card {
-  margin-top: var(--sc-4);
-  border-radius: var(--sc-r-md);
-  overflow: hidden;
-  border: 1px solid var(--sc-hairline-strong);
-  background: #eef3f9;
-}
-.bouake-map-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.bouake-map-bar {
-  padding: 0.75rem var(--sc-4);
-  background: var(--surface-card);
-  border-top: 1px solid var(--sc-hairline);
+.address-map-strip {
+  margin-top: var(--sc-5);
+  padding-top: var(--sc-4);
+  border-top: 1px solid var(--gold-line);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--sc-3);
-  font-size: 0.82rem;
+}
+.coords-mono {
+  font-family: var(--sc-font-mono);
+  font-size: 0.76rem;
   color: var(--sc-ink-soft);
 }
 
-/* Site Footer integrated inside Act 5 close so the page ends cleanly resolved */
-.clinic-colophon {
-  margin-top: clamp(2.5rem, 5vw, 4rem);
+.maison-colophon {
+  margin-top: clamp(3rem, 6vw, 5rem);
   padding-top: var(--sc-5);
   border-top: 1px solid var(--sc-hairline);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--sc-4);
+  gap: var(--sc-3);
   font-size: var(--sc-t-xs);
   color: var(--sc-ink-soft);
 }
 
 /* ============================================================================
-   MOBILE & COMPACT PHONE ART DIRECTION (860px, 390px, and 360x640)
-   Separate composition per hero-depth.md & approved-collection.md §6
+   DIRECTION ARTISTIQUE MOBILE (860px, 390x844 et 360x640)
+   Composition distincte garantissant zéro coupe haute ou basse dans 100svh
    ========================================================================== */
-@media (max-width: 960px) {
-  .clinic-bar__nav { display: none; }
+@media (max-width: 980px) {
+  .masthead__nav { display: none; }
+  .masthead__capsule { padding: 0.26rem; }
 }
 
 @media (max-width: 860px) {
-  .clinic-hours-badge { display: none; }
-  .clinic-bar__inner { padding-block: 0.48rem; gap: 0.5rem; }
-  .brand-mark { gap: 0.45rem; min-width: 0; }
-  .brand-mark__icon { width: 26px; height: 26px; }
-  .brand-mark__name { font-size: 0.86rem; white-space: nowrap; }
-  .brand-mark__city { display: none; }
-  .clinic-bar .btn-primary--sm { padding: 0.46rem 0.76rem; font-size: 0.77rem; }
+  .masthead {
+    top: 0.55rem;
+    gap: 0.45rem;
+  }
+  .masthead__brand {
+    padding: 0.4rem 0.85rem;
+  }
+  .masthead__name {
+    font-size: 1.02rem;
+    white-space: nowrap;
+  }
+  .masthead__place { display: none; }
+  .masthead .btn-champagne--sm {
+    padding: 0.46rem 0.86rem;
+    font-size: 0.78rem;
+  }
 
-  /* Recompose Hero: copy cleanly in top-upper-left clear sky/wall, 3D tooth centered below */
-  .hero-copy-scrim {
+  /* Acte 1 Mobile : texte lumineux en haut, arche sourire en bas de scène */
+  .hero-scrim {
     background: linear-gradient(
       180deg,
-      rgba(244, 246, 249, 0.98) 0%,
-      rgba(244, 246, 249, 0.96) 46%,
-      rgba(244, 246, 249, 0.74) 64%,
-      rgba(244, 246, 249, 0.16) 100%
+      rgba(250, 246, 240, 0.98) 0%,
+      rgba(250, 246, 240, 0.96) 46%,
+      rgba(250, 246, 240, 0.74) 64%,
+      rgba(250, 246, 240, 0.14) 100%
     );
   }
-  .hero-depth-word,
-  .hero-mid-frame { display: none; }
+  .hero-depth-mark { display: none; }
 
-  .hero-copy-block {
-    top: 3.85rem;
+  .hero-copy {
+    top: 3.9rem;
     bottom: auto;
     left: var(--sc-gutter);
     right: var(--sc-gutter);
     width: auto;
   }
   .hero-title {
-    font-size: clamp(1.72rem, 5.9vw, 2.3rem);
-    line-height: 1.04;
+    font-size: clamp(1.98rem, 6.9vw, 2.55rem);
+    line-height: 1.0;
     max-width: 16ch;
   }
-  .hero-sub {
-    margin-top: 0.45rem;
+  .hero-lead {
+    margin-top: 0.55rem;
     font-size: 0.9rem;
-    line-height: 1.46;
+    line-height: 1.48;
   }
-  .hero-actions {
-    margin-top: 0.65rem;
+  .hero-cta-row {
+    margin-top: 0.75rem;
     gap: 0.45rem;
   }
-  .hero-actions .btn-primary--lg,
-  .hero-actions .btn-secondary {
-    padding: 0.62rem 0.95rem;
+  .hero-cta-row .btn-champagne--lg,
+  .hero-cta-row .btn-ghost-warm {
+    padding: 0.62rem 1rem;
     font-size: 0.83rem;
   }
-  .hero-beat2-card {
-    padding: 0.9rem 1rem;
-  }
-  .hero-beat2-title { font-size: 1.16rem; }
-  .hero-beat2-body { font-size: 0.86rem; line-height: 1.48; margin-top: 0.35rem; }
+  .hero-whisper__heading { font-size: 1.5rem; }
+  .hero-whisper__body { font-size: 0.88rem; line-height: 1.48; margin-top: 0.4rem; }
 
-  .hero-3d-wrap {
-    left: 6%;
-    right: 6%;
+  .hero-portrait-wrap {
+    left: 10%;
+    right: 10%;
     top: auto;
-    bottom: 1.5%;
+    bottom: 0;
     width: auto;
-    height: 44svh;
+    height: 46svh;
   }
   .hero-plane--fg {
-    width: 28vw;
-    opacity: 0.5;
+    width: 30vw;
+    opacity: 0.52;
   }
 
-  /* Act 2 stack */
-  .reassurance-grid {
+  /* Acte 2 Mobile */
+  .sanctuary-spread {
     grid-template-columns: 1fr;
     gap: var(--sc-6);
   }
-  .reassurance-facts {
+  .pillar-row {
     grid-template-columns: 1fr;
-    gap: var(--sc-4);
+    gap: 0.25rem;
   }
 
-  /* Act 3 Peak: vertical stack fitting 100% inside 100svh with zero top/bottom clip */
-  .scanner-stage {
+  /* Acte 3 Cinéma Sombre Mobile : bandeau bas contrasté et cadrage centré sur l'orfèvrerie dentaire */
+  .cinema-stage video,
+  .cinema-stage .sc-stage__poster {
+    object-position: 66% center;
+  }
+  .cinema-scrim {
+    background: linear-gradient(
+      to top,
+      rgba(20, 15, 11, 0.95) 0%,
+      rgba(20, 15, 11, 0.88) 38%,
+      rgba(20, 15, 11, 0.35) 62%,
+      rgba(20, 15, 11, 0.08) 100%
+    );
+  }
+  .cinema-copy {
+    left: var(--sc-gutter);
+    right: var(--sc-gutter);
+    width: auto;
+    bottom: clamp(1.8rem, 6svh, 3.2rem);
+  }
+  .cinema-heading { font-size: clamp(1.78rem, 6.2vw, 2.25rem); }
+  .cinema-body { font-size: 0.9rem; line-height: 1.52; margin-top: 0.5rem; }
+
+  /* Acte 4 Lookbook Mobile */
+  .lookbook-intro { width: min(82vw, 20rem); }
+  .lookbook-plate { width: min(78vw, 19.5rem); }
+  .lookbook-endnote { width: min(80vw, 19.5rem); }
+
+  /* Acte 5 Pic Rideau d'Éclat Mobile (zéro débordement dans 100svh ni en largeur 360px) */
+  .eclat-stage {
     align-items: flex-start;
-    padding-top: 3.7rem;
+    padding-top: 3.8rem;
     padding-bottom: 0.6rem;
   }
-  .scanner-shell {
-    grid-template-columns: 1fr;
-    gap: 0.55rem;
+  .eclat-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
   }
-  .scanner-viewport {
+  .eclat-editorial {
+    min-width: 0;
+  }
+  .eclat-loupe {
+    aspect-ratio: auto;
     height: 31svh;
     min-height: 175px;
     max-height: 255px;
   }
-  .scanner-hud-top { top: 0.45rem; inset-inline: 0.55rem; }
-  #scanner-zone-label { display: none; }
-  .scanner-readout { font-size: 0.68rem; padding: 0.2rem 0.5rem; }
-  .scanner-phase-cue { bottom: 0.45rem; left: 0.55rem; font-size: 0.68rem; padding: 0.2rem 0.48rem; }
-  .scanner-panel {
-    padding: 0.82rem 0.95rem;
+  .eclat-badge {
+    font-size: 0.68rem;
+    padding: 0.22rem 0.55rem;
+    bottom: 0.45rem;
   }
-  .scanner-panel__eyebrow { display: none; }
-  .scanner-panel h2 { font-size: 1.18rem; line-height: 1.12; }
-  .scanner-panel__intro { display: none; }
-  .zone-tabs {
-    margin-top: 0.48rem;
+  .eclat-curtain-knob { width: 34px; height: 34px; }
+  .eclat-editorial .warm-eyebrow { display: none; }
+  .eclat-heading { font-size: 1.52rem; margin-top: 0; }
+  .eclat-lead { display: none; }
+  .intent-pills {
+    margin-top: 0.5rem;
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 0.15rem;
     scrollbar-width: none;
   }
-  .zone-tabs::-webkit-scrollbar { display: none; }
-  .zone-tab { flex: none; padding: 0.36rem 0.64rem; font-size: 0.76rem; }
-  .zone-detail { margin-top: 0.48rem; padding-top: 0.48rem; }
-  .zone-detail__title { font-size: 0.96rem; }
-  .zone-detail__body { font-size: 0.8rem; line-height: 1.42; margin-top: 0.24rem; }
-  .zone-detail__meta { margin-top: 0.4rem; padding: 0.34rem 0.55rem; font-size: 0.74rem; }
-  .zone-detail__footer { margin-top: 0.48rem; gap: 0.4rem; }
-  .dossier-sync-note { font-size: 0.74rem; }
+  .intent-pills::-webkit-scrollbar { display: none; }
+  .intent-pill { flex: none; padding: 0.38rem 0.74rem; font-size: 0.77rem; }
+  .intent-story { margin-top: 0.5rem; padding-top: 0.5rem; }
+  .intent-story__title { font-size: 1.15rem; }
+  .intent-story__body { font-size: 0.81rem; line-height: 1.44; margin-top: 0.25rem; }
+  .intent-story__sync { font-size: 0.75rem; margin-top: 0.35rem; }
+  .eclat-cta-row { margin-top: 0.55rem; }
 
-  /* Act 4 Pan cards */
-  .care-card { width: min(78vw, 19.5rem); }
-  .care-rail__lead { width: min(82vw, 20rem); }
-
-  /* Act 5 Desk */
-  .desk-grid { grid-template-columns: 1fr; }
-  .field-row { grid-template-columns: 1fr; }
+  /* Acte 6 Conciergerie Mobile */
+  .concierge-grid { grid-template-columns: 1fr; }
+  .concierge-inputs { grid-template-columns: 1fr; }
 }
 
-/* Compact 360x640 viewport tuning */
+/* Calibrage spécifique téléphone compact 360x640 */
 @media (max-height: 700px) and (max-width: 860px) {
-  .hero-copy-block { top: 3.6rem; }
-  .hero-title { font-size: 1.54rem; }
-  .hero-sub { font-size: 0.83rem; line-height: 1.4; margin-top: 0.35rem; }
-  .hero-actions { margin-top: 0.5rem; }
-  .hero-actions .btn-primary--lg,
-  .hero-actions .btn-secondary { padding: 0.52rem 0.82rem; font-size: 0.78rem; }
-  .hero-3d-wrap { height: 41svh; bottom: 0.5%; }
-  .scanner-stage { padding-top: 3.5rem; }
-  .scanner-viewport { height: 27svh; min-height: 156px; max-height: 178px; }
-  .zone-detail__meta,
-  .dossier-sync-note { display: none; }
+  .hero-copy { top: 3.55rem; }
+  .hero-title { font-size: 1.72rem; }
+  .hero-lead { font-size: 0.83rem; line-height: 1.4; margin-top: 0.38rem; }
+  .hero-cta-row { margin-top: 0.52rem; }
+  .hero-cta-row .btn-champagne--lg,
+  .hero-cta-row .btn-ghost-warm { padding: 0.52rem 0.84rem; font-size: 0.78rem; }
+  .hero-portrait-wrap { height: 42svh; }
+
+  .eclat-stage { padding-top: 3.55rem; }
+  .eclat-loupe { height: 27svh; min-height: 152px; max-height: 176px; }
+  .eclat-heading { font-size: 1.35rem; }
+  .intent-story__sync { display: none; }
+  .eclat-cta-row .btn-champagne { padding: 0.56rem 1.05rem; font-size: 0.8rem; }
 }
 
 @media (max-width: 385px) {
-  .clinic-bar__inner { padding-inline: 0.85rem; gap: 0.45rem; }
-  .brand-mark { gap: 0.38rem; }
-  .brand-mark__icon { width: 23px; height: 23px; }
-  .brand-mark__name { font-size: 0.79rem; }
-  .clinic-bar .btn-primary--sm { padding: 0.4rem 0.62rem; font-size: 0.73rem; }
+  .masthead { inset-inline: 0.85rem; }
+  .masthead__brand { padding: 0.36rem 0.68rem; }
+  .masthead__name { font-size: 0.92rem; }
+  .masthead .btn-champagne--sm { padding: 0.42rem 0.7rem; font-size: 0.73rem; }
 }
 
-/* Reduced motion layout refinements */
+/* Préférence mouvement réduit */
 @media (prefers-reduced-motion: reduce) {
   .hero-plane--bg img,
-  .hero-plane--fg img { transform: none !important; }
-  .care-rail { padding-block: var(--sc-4); }
+  .hero-plane--fg img,
+  .hero-portrait-img {
+    transform: none !important;
+  }
+  .lookbook-rail { padding-block: var(--sc-4); }
 }
-

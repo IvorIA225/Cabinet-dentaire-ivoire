@@ -1,404 +1,485 @@
-/**
- * app.js — Interactive Dossier, Live Bouaké Clinic Hours, Accessibility Focus & Hero Depth
- * Cabinet Dentaire Ivoire (Bouaké)
- */
+/* ============================================================================
+   app.js — Cabinet Dentaire Ivoire (Refonte v2 · Maison de Soin & Esthétique)
+   Interactions utiles :
+     1. Statut d'ouverture en direct sur le fuseau de Bouaké (UTC+0)
+     2. Parallaxe optique douce au pointeur sur le héros multi-plans
+     3. Mouvement signature (Acte 5) : Rideau d'Éclat Ivoire piloté par --sc-p
+        et débrayable librement au doigt, à la souris ou au clavier
+     4. Synchronisation entre la galerie (Acte 4), le rideau d'éclat (Acte 5)
+        et la conciergerie WhatsApp (+225 07 07 17 11 17) (Acte 6)
+     5. Copie presse-papiers, téléchargement de la fiche d'accès .txt et
+        accessibilité clavier complète sur les scènes épinglées et le rail
+   ========================================================================== */
+
 (function () {
   "use strict";
 
-  const WA_NUMBER = "2250707171117";
-  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const FINE_POINTER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var FINE_POINTER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var WHATSAPP_NUMBER = "2250707171117";
 
-  const CLINICAL_ZONES = {
-    douleur: {
-      tab: "Douleur ou carie",
-      motifLabel: "Soulager une douleur ou soigner une carie",
-      title: "Soulager une rage de dents ou soigner une carie",
-      body: "Lorsque l'émail est entamé, le froid ou le sucre réveille le nerf. Nous endormons d'abord la zone sans précipitation, retirons la partie abîmée et reconstruisons la dent avec une résine de la teinte naturelle de votre sourire.",
-      meta: "Créneau prioritaire : appelez ou écrivez dès 07h30 en semaine en cas de vive douleur.",
-      hudZone: "Zone ciblée : couronne et chambre pulpaire",
-      suggestSlot: "Urgence (dès que possible)",
+  /* -------------------------------------------------------------------------
+     1. DONNÉES CLINIQUES EN FRANÇAIS NATUREL (Zéro jargon, zéro tiret cadratin)
+     ----------------------------------------------------------------------- */
+  var INTENTS = {
+    eclat: {
+      label: "Éclat et détartrage",
+      title: "Retrouver une teinte saine et des gencives apaisées",
+      body: "Le thé, le café et le tartre ternissent progressivement l'émail et irritent les gencives. Un détartrage doux aux ultrasons suivi d'un polissage soigné redonne fraîcheur et éclat naturel dès la première séance.",
+      motif: "Retrouver l'éclat du sourire (détartrage, polissage ou gencives)",
+      momentHint: "En semaine (lundi au vendredi, 07h30 à 15h00)"
     },
-    detartrage: {
-      tab: "Détartrage et gencives",
-      motifLabel: "Détartrage et soin des gencives",
-      title: "Retrouver des gencives saines et des dents nettes",
-      body: "Le tartre déposé le long de la gencive finit par provoquer des saignements au brossage et une gêne durable. Un nettoyage doux aux ultrasons suivi d'un polissage retire ces dépôts tout en respectant l'émail.",
-      meta: "Séance confortable d'environ trente minutes, recommandée une à deux fois par an.",
-      hudZone: "Zone ciblée : collet gingival et surface d'émail",
-      suggestSlot: null,
-    },
-    implant: {
-      tab: "Dent manquante",
-      motifLabel: "Remplacer une dent absente (implant ou prothèse)",
-      title: "Remplacer une dent absente de façon stable",
-      body: "Un espace vide sollicite trop les dents voisines et complique la mastication. Après examen de votre os, nous posons une racine en titane surmontée d'une couronne céramique ou réalisons une prothèse ajustée à votre bouche.",
-      meta: "Bilan complet et devis écrit remis avant de démarrer le traitement.",
-      hudZone: "Zone ciblée : ancrage radiculaire en titane",
-      suggestSlot: null,
+    prothese: {
+      label: "Dent abîmée ou absente",
+      title: "Réparer ou remplacer une dent sans démarcation visible",
+      body: "Une dent fracturée ou absente fatigue les dents voisines et gêne le sourire. Couronne en céramique nacrée, prothèse ajustée ou implant solide : nous choisissons ensemble la solution durable adaptée à votre bouche.",
+      motif: "Réparer ou remplacer une dent (couronne céramique, prothèse ou implant)",
+      momentHint: "En semaine (lundi au vendredi, 07h30 à 15h00)"
     },
     alignement: {
-      tab: "Orthodontie",
-      motifLabel: "Alignement dentaire et orthodontie",
-      title: "Redresser des dents qui se chevauchent ou s'écartent",
-      body: "Des dents bien alignées se nettoient plus facilement et fatiguent moins l'articulation de la mâchoire. Nous suivons les enfants, les adolescents et les adultes avec des rendez-vous réguliers adaptés à vos horaires à Bouaké.",
-      meta: "Première consultation dédiée au bilan d'alignement et au calendrier de suivi.",
-      hudZone: "Zone ciblée : axe d'alignement de l'arcade",
-      suggestSlot: null,
+      label: "Alignement harmonieux",
+      title: "Réaligner les dents en douceur, à tout âge",
+      body: "Des dents bien alignées se brossent plus facilement et équilibrent tout le visage. Après un bilan précis, nous proposons un suivi progressif adapté à l'enfant, à l'adolescent ou à l'adulte.",
+      motif: "Aligner les dents (orthodontie enfant, ado ou adulte)",
+      momentHint: "Le samedi matin (07h30 à 12h00)"
     },
-    controle: {
-      tab: "Contrôle et enfants",
-      motifLabel: "Bilan complet ou visite enfant",
-      title: "Vérifier que tout va bien, pour vous ou votre enfant",
-      body: "Une carie débutante se traite vite et sans douleur lorsqu'elle est repérée tôt. Chez l'enfant, cette visite permet de découvrir le fauteuil dans le calme et de protéger les dents définitives dès leur apparition.",
-      meta: "Créneaux pratiques en matinée du lundi au vendredi ou le samedi de 07h30 à 12h00.",
-      hudZone: "Zone ciblée : sillons d'émail et prévention",
-      suggestSlot: "Samedi matin (07h30 à 12h00)",
-    },
+    urgence: {
+      label: "Soulager une douleur",
+      title: "Calmer rapidement une rage de dents ou une dent sensible",
+      body: "Quand le froid, le chaud ou la mastication réveillent une vive douleur, attendre aggrave l'inflammation. Nous endormons doucement la zone dès votre arrivée pour vous soulager sans stress.",
+      motif: "Soulager une douleur ou une urgence dentaire",
+      momentHint: "Dès que possible (créneau prioritaire dès 07h30)"
+    }
   };
 
-  /* --------------------------------------------------------------------------
-     1. LIVE BOUAKE OPENING HOURS (Africa/Abidjan = UTC+0 all year)
-     ------------------------------------------------------------------------ */
-  function updateBouakeStatus() {
-    const badge = document.getElementById("clinic-hours-badge");
-    const label = document.getElementById("clinic-hours-text");
-    if (!badge || !label) return;
+  /* -------------------------------------------------------------------------
+     2. STATUT D'OUVERTURE EN DIRECT À BOUAKÉ (Côte d'Ivoire = UTC+0 toute l'année)
+     ----------------------------------------------------------------------- */
+  function updateBouakeHours() {
+    var el = document.getElementById("live-hours-status");
+    if (!el) return;
 
-    const now = new Date();
-    const utcDay = now.getUTCDay(); // 0 = Sun, 1..5 = Mon..Fri, 6 = Sat
-    const mins = now.getUTCHours() * 60 + now.getUTCMinutes();
+    var now = new Date();
+    var day = now.getUTCDay(); // 0 = Dim, 1..5 = Lun..Ven, 6 = Sam
+    var mins = now.getUTCHours() * 60 + now.getUTCMinutes();
 
-    let open = false;
-    let text = "Lun au Ven 07h30 à 15h00 · Sam 07h30 à 12h00";
+    var isOpen = false;
+    var statusText = "";
 
-    if (utcDay >= 1 && utcDay <= 5) {
+    if (day >= 1 && day <= 5) {
       if (mins >= 450 && mins < 900) {
-        open = true;
-        text = "Ouvert à Bouaké · jusqu'à 15h00";
+        isOpen = true;
+        statusText = "Bouaké · Cabinet ouvert jusqu'à 15h00";
       } else if (mins < 450) {
-        text = "Ouvre ce matin à 07h30";
+        statusText = "Bouaké · Ouvre ce matin à 07h30";
       } else {
-        text = utcDay === 5 ? "Fermé · ouvre samedi à 07h30" : "Fermé · ouvre demain à 07h30";
+        statusText = day === 5
+          ? "Bouaké · Ouvre samedi à 07h30"
+          : "Bouaké · Ouvre demain à 07h30";
       }
-    } else if (utcDay === 6) {
+    } else if (day === 6) {
       if (mins >= 450 && mins < 720) {
-        open = true;
-        text = "Ouvert ce samedi · jusqu'à 12h00";
+        isOpen = true;
+        statusText = "Bouaké · Cabinet ouvert ce samedi jusqu'à 12h00";
       } else if (mins < 450) {
-        text = "Ouvre ce matin à 07h30";
+        statusText = "Bouaké · Ouvre ce samedi à 07h30";
       } else {
-        text = "Fermé · ouvre lundi à 07h30";
+        statusText = "Bouaké · Ouvre lundi dès 07h30";
       }
     } else {
-      text = "Dimanche fermé · ouvre lundi à 07h30";
+      statusText = "Bouaké · Fermé dimanche, ouvre lundi à 07h30";
     }
 
-    badge.setAttribute("data-open", open ? "true" : "false");
-    label.textContent = text;
+    el.setAttribute("data-open", isOpen ? "true" : "false");
+    el.textContent = statusText;
   }
-  updateBouakeStatus();
 
-  /* --------------------------------------------------------------------------
-     2. HERO SUBTLE POINTER DEPTH (gated to fine pointer & no reduced motion)
-     ------------------------------------------------------------------------ */
-  const heroAct = document.getElementById("hero-act");
-  if (heroAct && FINE_POINTER && !REDUCED) {
-    let tx = 0, ty = 0, cx = 0, cy = 0;
-    let heroVisible = true;
-    const hio = new IntersectionObserver((entries) => {
-      heroVisible = entries[0]?.isIntersecting ?? false;
+  /* -------------------------------------------------------------------------
+     3. PARALLAXE DOUCE AU POINTEUR SUR LE HÉROS MULTI-PLANS
+     ----------------------------------------------------------------------- */
+  function initHeroPointer() {
+    if (!FINE_POINTER || REDUCED) return;
+    var heroAct = document.getElementById("hero-act");
+    var heroStage = document.querySelector(".hero-stage");
+    if (!heroAct || !heroStage) return;
+
+    var tx = 0;
+    var ty = 0;
+    var cx = 0;
+    var cy = 0;
+    var active = true;
+    var raf = 0;
+
+    function tick() {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      heroStage.style.setProperty("--hero-px", cx.toFixed(4));
+      heroStage.style.setProperty("--hero-py", cy.toFixed(4));
+      if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = 0;
+      }
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      active = !!(entries[0] && entries[0].isIntersecting);
     });
-    hio.observe(heroAct);
+    io.observe(heroAct);
 
     window.addEventListener(
       "pointermove",
-      (e) => {
-        if (e.pointerType !== "mouse" || !heroVisible) return;
+      function (e) {
+        if (!active || e.pointerType !== "mouse") return;
         tx = (e.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2;
         ty = (e.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2;
+        if (!raf) raf = requestAnimationFrame(tick);
       },
       { passive: true }
     );
-
-    (function stepHeroPointer() {
-      if (heroVisible) {
-        cx += (tx - cx) * 0.08;
-        cy += (ty - cy) * 0.08;
-        heroAct.style.setProperty("--hero-px", cx.toFixed(3));
-        heroAct.style.setProperty("--hero-py", cy.toFixed(3));
-      }
-      requestAnimationFrame(stepHeroPointer);
-    })();
   }
 
-  /* --------------------------------------------------------------------------
-     3. SYNCHRONIZED 3D CLINICAL EXPLORER & WHATSAPP DOSSIER
-     ------------------------------------------------------------------------ */
-  const tabs = Array.from(document.querySelectorAll("[data-zone-tab]"));
-  const detailTitle = document.getElementById("zone-detail-title");
-  const detailBody = document.getElementById("zone-detail-body");
-  const detailMeta = document.getElementById("zone-detail-meta");
-  const hudZoneLabel = document.getElementById("scanner-zone-label");
-  const syncNote = document.getElementById("dossier-sync-note");
+  /* -------------------------------------------------------------------------
+     4. MOUVEMENT SIGNATURE : LE RIDEAU D'ÉCLAT IVOIRE (Scroll + Tactile/Clavier)
+     ----------------------------------------------------------------------- */
+  var currentIntent = "eclat";
 
-  const motifSelect = document.getElementById("dossier-motif");
-  const slotSelect = document.getElementById("dossier-slot");
-  const nameInput = document.getElementById("dossier-name");
-  const noteInput = document.getElementById("dossier-note");
-  const previewEl = document.getElementById("wa-preview-text");
-  const formEl = document.getElementById("dossier-form");
-  const feedbackEl = document.getElementById("dossier-feedback");
-  const copyBtn = document.getElementById("copy-wa-btn");
-  const downloadMemoBtn = document.getElementById("download-memo-btn");
+  function initEclatCurtain() {
+    var actEl = document.getElementById("eclat");
+    var loupeEl = document.getElementById("eclat-loupe-stage");
+    var rangeEl = document.getElementById("eclat-range");
+    if (!actEl || !loupeEl || !rangeEl) return;
 
-  let currentZone = "douleur";
-  let userTouchedSlot = false;
+    var manualOverride = false;
+    var visible = true;
+    var shownPct = REDUCED ? 38 : 84;
 
-  if (slotSelect) {
-    slotSelect.addEventListener("change", () => {
-      userTouchedSlot = true;
-      updateWhatsAppPreview();
+    function applyCurtain(pct) {
+      var clamped = Math.max(4, Math.min(96, pct));
+      loupeEl.style.setProperty("--curtain-pos", clamped.toFixed(2) + "%");
+      rangeEl.value = String(Math.round(clamped));
+      loupeEl.setAttribute(
+        "data-sc-verify-state",
+        "curtain:" + Math.round(clamped) + "|intent:" + currentIntent
+      );
+    }
+
+    rangeEl.addEventListener("input", function () {
+      manualOverride = true;
+      shownPct = parseFloat(rangeEl.value) || 50;
+      applyCurtain(shownPct);
     });
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        var nowVis = !!(entries[0] && entries[0].isIntersecting);
+        if (!nowVis && visible) {
+          manualOverride = false;
+        }
+        visible = nowVis;
+      },
+      { rootMargin: "150px 0px" }
+    );
+    io.observe(actEl);
+
+    if (REDUCED) {
+      applyCurtain(38);
+      return { refreshVerify: function () { applyCurtain(shownPct); } };
+    }
+
+    function smoothstep(a, b, x) {
+      var t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+      return t * t * (3 - 2 * t);
+    }
+
+    function loop() {
+      if (visible && !document.hidden && !manualOverride) {
+        var p = parseFloat(actEl.style.getPropertyValue("--sc-p")) || 0;
+        // De p=0.06 à p=0.82, le voile doré glisse de 86 % vers 16 % à travers le sourire (situé autour de 60 %)
+        var sweep = smoothstep(0.06, 0.82, p);
+        var targetPct = 86 - sweep * 70;
+        shownPct += (targetPct - shownPct) * 0.16;
+        applyCurtain(shownPct);
+      }
+      requestAnimationFrame(loop);
+    }
+
+    applyCurtain(shownPct);
+    requestAnimationFrame(loop);
+
+    return {
+      refreshVerify: function () {
+        applyCurtain(shownPct);
+      }
+    };
   }
+
+  /* -------------------------------------------------------------------------
+     5. SYNCHRONISATION DES INTENTIONS DE SOIN & CONCIERGERIE WHATSAPP
+     ----------------------------------------------------------------------- */
+  var motifHidden = document.getElementById("concierge-motif");
+  var momentHidden = document.getElementById("concierge-moment");
+  var nameInput = document.getElementById("patient-name");
+  var mutuelleInput = document.getElementById("patient-mutuelle");
+  var previewText = document.getElementById("wa-preview-text");
+  var directAnchor = document.getElementById("wa-direct-anchor");
+  var feedbackEl = document.getElementById("concierge-feedback");
 
   function composeWhatsAppMessage() {
-    const z = CLINICAL_ZONES[currentZone] || CLINICAL_ZONES.douleur;
-    const motif = (motifSelect && motifSelect.value) || z.motifLabel;
-    const slot = (slotSelect && slotSelect.value) || "Matin en semaine (07h30 à 11h00)";
-    const patientName = nameInput ? nameInput.value.trim() : "";
-    const extra = noteInput ? noteInput.value.trim() : "";
+    var motif = motifHidden ? motifHidden.value : INTENTS.eclat.motif;
+    var moment = momentHidden ? momentHidden.value : "Dès que possible (créneau prioritaire dès 07h30)";
+    var nom = nameInput ? nameInput.value.trim() : "";
+    var note = mutuelleInput ? mutuelleInput.value.trim() : "";
 
-    const parts = ["Bonjour Cabinet Dentaire Ivoire,"];
-    if (patientName) {
-      parts.push(`Je m'appelle ${patientName} et j'aimerais prendre rendez-vous.`);
+    var parts = ["Bonjour Cabinet Dentaire Ivoire,"];
+    if (nom) {
+      parts.push("Je m'appelle " + nom + " et j'aimerais prendre rendez-vous au cabinet de Bouaké.");
     } else {
       parts.push("J'aimerais prendre rendez-vous au cabinet de Bouaké.");
     }
-    parts.push(`Motif : ${motif}.`);
-    parts.push(`Disponibilité souhaitée : ${slot}.`);
-    if (extra) {
-      parts.push(`Précision : ${extra}.`);
+    parts.push("Motif : " + motif + ".");
+    parts.push("Disponibilité souhaitée : " + moment + ".");
+    if (note) {
+      parts.push("Précision : " + note + ".");
     }
     parts.push("Merci beaucoup.");
     return parts.join(" ");
   }
 
-  function updateWhatsAppPreview() {
-    const msg = composeWhatsAppMessage();
-    if (previewEl) previewEl.textContent = msg;
-    const directWaLink = document.getElementById("direct-wa-fallback");
-    if (directWaLink) {
-      directWaLink.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  function refreshWhatsAppComposer() {
+    var msg = composeWhatsAppMessage();
+    if (previewText) previewText.textContent = msg;
+    if (directAnchor) {
+      directAnchor.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
     }
   }
 
-  function selectClinicalZone(zoneKey, opts = {}) {
-    if (!CLINICAL_ZONES[zoneKey]) return;
-    currentZone = zoneKey;
-    const z = CLINICAL_ZONES[zoneKey];
-
-    tabs.forEach((btn) => {
-      const active = btn.getAttribute("data-zone-tab") === zoneKey;
-      btn.setAttribute("aria-selected", active ? "true" : "false");
-      btn.tabIndex = active ? 0 : -1;
+  function activateChipGroup(containerId, hiddenInput, attrName, targetValue) {
+    var container = document.getElementById(containerId);
+    if (!container || !hiddenInput) return;
+    hiddenInput.value = targetValue;
+    var chips = container.querySelectorAll(".choice-chip");
+    chips.forEach(function (chip) {
+      var match = chip.getAttribute(attrName) === targetValue;
+      chip.classList.toggle("is-active", match);
+      chip.setAttribute("aria-pressed", match ? "true" : "false");
     });
-
-    if (detailTitle) detailTitle.textContent = z.title;
-    if (detailBody) detailBody.textContent = z.body;
-    if (detailMeta) detailMeta.textContent = z.meta;
-    if (hudZoneLabel) hudZoneLabel.textContent = z.hudZone;
-    if (syncNote) syncNote.textContent = `Motif préparé dans votre demande : ${z.tab}`;
-
-    if (motifSelect && opts.fromSelect !== true) {
-      motifSelect.value = z.motifLabel;
-    }
-    if (slotSelect && !userTouchedSlot && z.suggestSlot) {
-      slotSelect.value = z.suggestSlot;
-    }
-
-    if (window.Dental3D && typeof window.Dental3D.setZone === "function") {
-      window.Dental3D.setZone(zoneKey);
-    }
-
-    updateWhatsAppPreview();
+    refreshWhatsAppComposer();
   }
 
-  // Wire Peak Explorer tabs + keyboard Left/Right arrow navigation
-  tabs.forEach((btn, idx) => {
-    btn.addEventListener("click", () => {
-      selectClinicalZone(btn.getAttribute("data-zone-tab"));
-    });
-    btn.addEventListener("keydown", (e) => {
-      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-      e.preventDefault();
-      const dir = e.key === "ArrowRight" ? 1 : -1;
-      const next = tabs[(idx + dir + tabs.length) % tabs.length];
-      next.focus();
-      selectClinicalZone(next.getAttribute("data-zone-tab"));
-    });
-  });
+  function selectIntent(intentKey, curtainCtrl, scrollToConcierge) {
+    var data = INTENTS[intentKey];
+    if (!data) return;
+    currentIntent = intentKey;
 
-  // Wire Act 4 Care Gallery "Choisir ce soin" buttons
-  document.querySelectorAll("[data-pick-zone]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const zone = btn.getAttribute("data-pick-zone");
-      selectClinicalZone(zone);
-      const desk = document.getElementById("rendez-vous");
-      if (desk) desk.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth" });
+    var tabs = document.querySelectorAll("[data-intent-tab]");
+    tabs.forEach(function (tab) {
+      var active = tab.getAttribute("data-intent-tab") === intentKey;
+      tab.setAttribute("aria-selected", active ? "true" : "false");
+      tab.tabIndex = active ? 0 : -1;
     });
-  });
 
-  // Wire Act 5 form inputs
-  if (motifSelect) {
-    motifSelect.addEventListener("change", () => {
-      const matched = Object.entries(CLINICAL_ZONES).find(
-        ([, val]) => val.motifLabel === motifSelect.value
-      );
-      if (matched) selectClinicalZone(matched[0], { fromSelect: true });
-      else updateWhatsAppPreview();
-    });
+    var titleEl = document.getElementById("intent-story-title");
+    var bodyEl = document.getElementById("intent-story-body");
+    var syncEl = document.getElementById("intent-story-sync");
+    if (titleEl) titleEl.textContent = data.title;
+    if (bodyEl) bodyEl.textContent = data.body;
+    if (syncEl) syncEl.textContent = "Sélection enregistrée pour votre demande : " + data.label;
+
+    activateChipGroup("motif-chips", motifHidden, "data-motif", data.motif);
+    if (intentKey === "urgence") {
+      activateChipGroup("moment-chips", momentHidden, "data-moment", data.momentHint);
+    }
+
+    if (curtainCtrl && curtainCtrl.refreshVerify) {
+      curtainCtrl.refreshVerify();
+    }
+
+    if (scrollToConcierge) {
+      var target = document.getElementById("rendez-vous");
+      if (target) {
+        target.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth" });
+      }
+    }
   }
-  [nameInput, noteInput].forEach((inp) => {
-    if (inp) inp.addEventListener("input", updateWhatsAppPreview);
-  });
 
-  function showFeedback(text) {
+  function showToast(text) {
     if (!feedbackEl) return;
     feedbackEl.textContent = text;
     feedbackEl.hidden = false;
   }
 
-  if (formEl) {
-    formEl.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const msg = composeWhatsAppMessage();
-      const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-      window.open(url, "_blank", "noopener,noreferrer");
-      showFeedback(
-        "WhatsApp s'ouvre avec votre message préparé pour le (+225) 07 07 17 11 17. Si l'application ne se lance pas sur cet appareil, utilisez le bouton Copier le message ou appelez directement le cabinet."
-      );
-    });
+  function buildMemoCardText() {
+    var motif = motifHidden ? motifHidden.value : INTENTS.eclat.motif;
+    var moment = momentHidden ? momentHidden.value : "";
+    return [
+      "CABINET DENTAIRE IVOIRE · BOUAKÉ",
+      "Chirurgien-dentiste : Dr Kouakou Hilaire",
+      "",
+      "ADRESSE EXACTE :",
+      "Avenue Félix Houphouët-Boigny, juste en face du Grand Bazar",
+      "Immeuble Librairie de France, 2e étage (01 BP 888 Bouaké 01)",
+      "Coordonnées GPS : 7.683118, -5.0282452",
+      "",
+      "CONTACTS :",
+      "Mobile et WhatsApp : (+225) 07 07 17 11 17",
+      "Téléphone fixe : (+225) 27 31 63 49 53",
+      "Email : cabinetdentaireivoire@yahoo.fr",
+      "",
+      "HORAIRES D'OUVERTURE :",
+      "Lundi au vendredi : 07h30 à 15h00",
+      "Samedi : 07h30 à 12h00 (Fermé le dimanche)",
+      "",
+      "MUTUELLES :",
+      "Partenaire de réseaux de prévoyance et mutuelles dont la MUPEMENET-CI",
+      "Pensez à apporter votre carte d'assuré.",
+      "",
+      "DEMANDE PRÉPARÉE :",
+      "Motif : " + motif,
+      "Créneau souhaité : " + moment
+    ].join("\r\n");
   }
 
-  if (copyBtn) {
-    copyBtn.addEventListener("click", async () => {
-      const msg = composeWhatsAppMessage();
-      try {
-        await navigator.clipboard.writeText(msg);
-        showFeedback("Votre message a été copié. Vous pouvez le coller dans WhatsApp ou par SMS au (+225) 07 07 17 11 17.");
-      } catch {
-        showFeedback("Copiez directement l'aperçu du message ci-dessus pour l'envoyer au (+225) 07 07 17 11 17.");
+  /* -------------------------------------------------------------------------
+     6. ACCESSIBILITÉ CLAVIER SUR LES ACTES ÉPINGLÉS & LE RAIL HORIZONTAL
+     ----------------------------------------------------------------------- */
+  function initKeyboardScrollAssist() {
+    document.addEventListener("focusin", function (e) {
+      var el = e.target;
+      if (!(el instanceof HTMLElement)) return;
+
+      var cue = el.closest("[data-sc-cue]");
+      var pinnedAct = el.closest('[data-sc-act="pin"], [data-sc-act="scrub"]');
+      if (cue && pinnedAct) {
+        var raw = (cue.getAttribute("data-sc-cue") || "0 1").trim().split(/\s+/).map(Number);
+        var from = isNaN(raw[0]) ? 0 : raw[0];
+        var to = isNaN(raw[1]) ? 1 : raw[1];
+        var midP = (from + to) * 0.5;
+        var rect = pinnedAct.getBoundingClientRect();
+        var actTop = rect.top + window.scrollY;
+        var travel = Math.max(0, pinnedAct.offsetHeight - window.innerHeight);
+        var currentP = travel > 0 ? (window.scrollY - actTop) / travel : 0;
+        if (currentP < from + 0.04 || currentP > to - 0.04) {
+          window.scrollTo({ top: Math.round(actTop + midP * travel), behavior: "instant" });
+          if (window.ScrollCraft && window.ScrollCraft.instances && window.ScrollCraft.instances[0]) {
+            window.ScrollCraft.instances[0].read();
+          }
+        }
+        return;
+      }
+
+      var panAct = el.closest('[data-sc-act="pan"]');
+      var rail = el.closest("[data-sc-pan]");
+      if (panAct && rail) {
+        if (REDUCED) {
+          el.scrollIntoView({ behavior: "instant", block: "nearest", inline: "center" });
+        } else {
+          var item = el.closest(".lookbook-plate, .lookbook-endnote");
+          if (item) {
+            var maxShift = Math.max(1, rail.scrollWidth - window.innerWidth);
+            var desiredX = Math.max(0, Math.min(maxShift, item.offsetLeft - window.innerWidth * 0.25));
+            var ratio = desiredX / maxShift;
+            var panTop = panAct.getBoundingClientRect().top + window.scrollY;
+            var panTravel = Math.max(0, panAct.offsetHeight - window.innerHeight);
+            window.scrollTo({ top: Math.round(panTop + ratio * panTravel), behavior: "instant" });
+            if (window.ScrollCraft && window.ScrollCraft.instances && window.ScrollCraft.instances[0]) {
+              window.ScrollCraft.instances[0].read();
+            }
+          }
+        }
       }
     });
   }
 
-  if (downloadMemoBtn) {
-    downloadMemoBtn.addEventListener("click", () => {
-      const z = CLINICAL_ZONES[currentZone] || CLINICAL_ZONES.douleur;
-      const motif = (motifSelect && motifSelect.value) || z.motifLabel;
-      const slot = (slotSelect && slotSelect.value) || "Matin en semaine (07h30 à 11h00)";
-      const memoLines = [
-        "CABINET DENTAIRE IVOIRE (BOUAKÉ)",
-        "Dr Kouakou Hilaire, Chirurgien-dentiste",
-        "",
-        "VOTRE DEMANDE PRÉPARÉE",
-        `Motif : ${motif}`,
-        `Créneau souhaité : ${slot}`,
-        "",
-        "REPÈRES D'ACCÈS À BOUAKÉ",
-        "Adresse : Avenue Félix Houphouët-Boigny, face au Grand Bazar",
-        "Bâtiment : Immeuble Librairie de France, au 2e étage",
-        "Boîte postale : 01 BP 888 Bouaké 01",
-        "Google Maps : https://www.google.com/maps/place/Cabinet+Dentaire+Ivoire/@7.683118,-5.0282452,17z",
-        "",
-        "CONTACTS DIRECTS",
-        "WhatsApp et Mobile : (+225) 07 07 17 11 17",
-        "Téléphone fixe : (+225) 27 31 63 49 53",
-        "Email : cabinetdentaireivoire@yahoo.fr",
-        "",
-        "HORAIRES D'OUVERTURE",
-        "Lundi au vendredi : 07h30 à 15h00",
-        "Samedi : 07h30 à 12h00",
-        "Dimanche : Fermé",
-        "",
-        "BON À SAVOIR",
-        "Pensez à apporter votre carte d'assurance ou de mutuelle partenaire (dont MUPEMENET-CI) ainsi que vos éventuelles radiographies récentes.",
-      ].join("\r\n");
+  /* -------------------------------------------------------------------------
+     7. INITIALISATION
+     ----------------------------------------------------------------------- */
+  if (window.ScrollCraft && typeof window.ScrollCraft.mount === "function") {
+    window.ScrollCraft.mount();
+  }
+  updateBouakeHours();
+  initHeroPointer();
+  var curtainCtrl = initEclatCurtain();
+  initKeyboardScrollAssist();
 
-      const blob = new Blob([memoLines], { type: "text/plain;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "memo-cabinet-dentaire-ivoire-bouake.txt";
+  // Onglets d'intention de l'Acte 5 (clic + flèches clavier)
+  var intentTabs = Array.prototype.slice.call(document.querySelectorAll("[data-intent-tab]"));
+  intentTabs.forEach(function (tab, idx) {
+    tab.addEventListener("click", function () {
+      selectIntent(tab.getAttribute("data-intent-tab"), curtainCtrl, false);
+    });
+    tab.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      e.preventDefault();
+      var nextIdx = (idx + (e.key === "ArrowRight" ? 1 : -1) + intentTabs.length) % intentTabs.length;
+      intentTabs[nextIdx].focus();
+      selectIntent(intentTabs[nextIdx].getAttribute("data-intent-tab"), curtainCtrl, false);
+    });
+  });
+
+  // Boutons rapides de la galerie lookbook (Acte 4 -> Acte 6)
+  document.querySelectorAll("[data-pick-intent]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      selectIntent(btn.getAttribute("data-pick-intent"), curtainCtrl, true);
+    });
+  });
+
+  // Pastilles de choix de la conciergerie (Acte 6)
+  document.querySelectorAll("#motif-chips .choice-chip").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      activateChipGroup("motif-chips", motifHidden, "data-motif", chip.getAttribute("data-motif"));
+    });
+  });
+  document.querySelectorAll("#moment-chips .choice-chip").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      activateChipGroup("moment-chips", momentHidden, "data-moment", chip.getAttribute("data-moment"));
+    });
+  });
+
+  if (nameInput) nameInput.addEventListener("input", refreshWhatsAppComposer);
+  if (mutuelleInput) mutuelleInput.addEventListener("input", refreshWhatsAppComposer);
+
+  var form = document.getElementById("concierge-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var msg = composeWhatsAppMessage();
+      var waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+      var popup = window.open(waUrl, "_blank", "noopener,noreferrer");
+      if (!popup) {
+        window.location.href = waUrl;
+      }
+      showToast("Votre message s'ouvre dans WhatsApp vers le (+225) 07 07 17 11 17. Vous pouvez aussi appeler directement l'accueil.");
+    });
+  }
+
+  var copyBtn = document.getElementById("copy-wa-btn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", function () {
+      var msg = composeWhatsAppMessage();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(function () {
+          showToast("Texte copié. Collez-le directement dans votre conversation WhatsApp avec le (+225) 07 07 17 11 17.");
+        });
+      }
+    });
+  }
+
+  var memoBtn = document.getElementById("download-memo-btn");
+  if (memoBtn) {
+    memoBtn.addEventListener("click", function () {
+      var blob = new Blob([buildMemoCardText()], { type: "text/plain;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "fiche-acces-cabinet-dentaire-ivoire-bouake.txt";
       document.body.appendChild(a);
       a.click();
       a.remove();
-      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-      showFeedback("La fiche mémo avec l'adresse exacte face au Grand Bazar et les numéros du cabinet a été téléchargée.");
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1200);
+      showToast("Fiche d'accès téléchargée avec le repère du Grand Bazar et les contacts du cabinet.");
     });
   }
 
-  // Initialize default selection
-  selectClinicalZone("douleur");
-
-  /* --------------------------------------------------------------------------
-     4. PINNED-ACT & RAIL KEYBOARD FOCUS PARKING (verify.md §Keyboard)
-     Ensures Tab into any control inside a pinned or panning act parks scroll
-     at a position where its cue is fully open (opacity = 1).
-     ------------------------------------------------------------------------ */
-  function invertDwell(targetP, L) {
-    if (!L) return targetP;
-    // Binary search monotone dwell(raw, L) = targetP on [0, 1]
-    let lo = 0, hi = 1;
-    for (let i = 0; i < 20; i++) {
-      const mid = (lo + hi) * 0.5;
-      const c = mid - 0.5;
-      const val = (1 - L) * mid + L * (4 * c * c * c + 0.5);
-      if (val < targetP) lo = mid;
-      else hi = mid;
-    }
-    return (lo + hi) * 0.5;
-  }
-
-  window.addEventListener("focusin", (e) => {
-    const el = e.target;
-    if (!el || !el.closest) return;
-
-    // Case A: Control inside a pinned act's cue
-    const cueEl = el.closest("[data-sc-cue]");
-    const actEl = el.closest("[data-sc-act]");
-    if (cueEl && actEl && ["pin", "scrub"].includes(actEl.getAttribute("data-sc-act"))) {
-      const op = parseFloat(getComputedStyle(cueEl).opacity || "1");
-      if (op < 0.9) {
-        const nums = (cueEl.getAttribute("data-sc-cue") || "0 1").trim().split(/\s+/).map(parseFloat);
-        const from = isNaN(nums[0]) ? 0 : nums[0];
-        const to = nums.length > 1 && !isNaN(nums[1]) ? nums[1] : 1;
-        const midP = (from + to) * 0.5;
-        const L = parseFloat(actEl.getAttribute("data-sc-dwell")) || 0;
-        const raw = invertDwell(midP, L);
-        const rect = actEl.getBoundingClientRect();
-        const actTop = rect.top + window.scrollY;
-        const travel = Math.max(actEl.offsetHeight - window.innerHeight, 1);
-        window.scrollTo({ top: Math.round(actTop + raw * travel), behavior: "instant" });
-      }
-    }
-
-    // Case B: Control inside horizontal pan rail
-    const cardEl = el.closest(".care-card");
-    const panAct = el.closest('[data-sc-act="pan"]');
-    if (cardEl && panAct && !REDUCED) {
-      const rail = panAct.querySelector("[data-sc-pan]");
-      if (rail) {
-        const over = rail.scrollWidth - window.innerWidth;
-        if (over > 0) {
-          const targetX = Math.max(0, Math.min(over, cardEl.offsetLeft - window.innerWidth * 0.25));
-          const raw = targetX / over;
-          const actTop = panAct.getBoundingClientRect().top + window.scrollY;
-          const travel = Math.max(panAct.offsetHeight - window.innerHeight, 1);
-          window.scrollTo({ top: Math.round(actTop + raw * travel), behavior: "instant" });
-        }
-      }
-    }
-  });
+  refreshWhatsAppComposer();
 })();
-

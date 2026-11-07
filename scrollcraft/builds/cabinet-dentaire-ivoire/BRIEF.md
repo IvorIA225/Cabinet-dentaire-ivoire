@@ -1,76 +1,50 @@
-# BRIEF — Cabinet Dentaire Ivoire (Bouaké)
+# BRIEF — Cabinet Dentaire Ivoire (Refonte v2 · Maison de Soin & Esthétique)
 
-**Statut d'autorité créative :** `Self-authored under explicit creative delegation`
+## Statut d'autorité créative
+Refonte complète demandée par l'utilisateur après revue de la v1 (*« Franchement le deseign du site ne me convient pas peux tu le refaire »*), guidée par les réponses explicites de l'entretien créatif :
 
-## Faits vérifiés et directives explicites de l'utilisateur (Evidence)
-
-- **Demande initiale de l'utilisateur (verbatim sur l'intention) :** Créer un site internet visuellement beau, épuré, avec des designs 3D cinématiques, pensé pour attirer le maximum de clients pour le Cabinet Dentaire Ivoire à Bouaké, avec un texte en langage naturel, facile à comprendre et tourné vers la conversion.
-- **Confirmation utilisateur :** Le numéro `(+225) 07 07 17 11 17` est bien actif sur WhatsApp. Pour tout le reste de la direction artistique et structurelle, délégation créative explicite (*carte blanche*).
-- **Données réelles vérifiées du cabinet :**
-  - **Nom :** Cabinet Dentaire Ivoire
-  - **Praticien référencé :** Dr Kouakou Hilaire, Chirurgien-dentiste
-  - **Adresse :** Avenue Félix Houphouët-Boigny, face au Grand Bazar, Immeuble Librairie de France (2e étage), 01 BP 888 Bouaké 01, Côte d'Ivoire
-  - **Coordonnées GPS Google Maps :** `7.683118, -5.0282452`
-  - **Téléphones :** `(+225) 07 07 17 11 17` (Mobile & WhatsApp) et `(+225) 27 31 63 49 53` (Fixe)
-  - **Email :** `cabinetdentaireivoire@yahoo.fr`
-  - **Horaires :** Lundi au vendredi de 07h30 à 15h00, samedi de 07h30 à 12h00, fermé le dimanche
-  - **Soins pratiqués :** Soins conservateurs (caries, dévitalisation), urgences dentaires, détartrage et parodontie, implants dentaires, prothèses, orthodontie, chirurgie buccale et prévention enfant/adulte
-  - **Assurances et mutuelles :** Partenaire d'organismes de santé et mutuelles en Côte d'Ivoire (dont la MUPEMENET-CI)
+- **Direction visuelle et ambiance (réponse utilisateur) :** *« Ivoire chaud, albâtre & or champagne (esprit clinique esthétique haut de gamme, lumineux et chaleureux) »*
+- **Expérience 3D et rythme au défilement (réponse utilisateur) :** *« Animations studio photoréalistes pilotées au scroll (séquence d'images cinéma haute définition qui s'anime en défilant, sans 3D géométrique "codée") »*
+- **Image d'accueil du premier écran (réponse utilisateur) :** *« L'émotion d'un sourire éclatant et naturel combiné à une esthétique studio digne d'une grande maison de soin »*
+- **Confirmation antérieure :** Le numéro `(+225) 07 07 17 11 17` est actif sur WhatsApp ; carte blanche sur les arbitrages complémentaires.
 
 ---
 
-## Les 8 décisions du brief (Authored under explicit creative delegation)
+## Données factuelles vérifiées du cabinet (inchangées, zéro invention)
+- **Nom :** Cabinet Dentaire Ivoire
+- **Praticien :** Dr Kouakou Hilaire, Chirurgien-dentiste
+- **Adresse :** Avenue Félix Houphouët-Boigny, juste en face du Grand Bazar, Immeuble Librairie de France (2e étage), 01 BP 888 Bouaké 01, Côte d'Ivoire (`7.683118, -5.0282452`)
+- **Téléphones :** `(+225) 07 07 17 11 17` (Mobile & WhatsApp) · `(+225) 27 31 63 49 53` (Fixe)
+- **Email :** `cabinetdentaireivoire@yahoo.fr`
+- **Horaires :** Lundi au vendredi `07h30 à 15h00` · Samedi `07h30 à 12h00` · Fermé le dimanche
+- **Mutuelles :** Partenaire de réseaux de prévoyance et mutuelles en Côte d'Ivoire, dont la **MUPEMENET-CI**
 
-1. **Ambiance en 3 à 5 mots + 3 références hors web :**
-   *Lumineux, chirurgical, serein, sculptural.*
-   Références hors web :
-   - Les flagships d'architecture médicale suisse à Zurich (béton clair, verre dépoli, lumière du matin rasante, absence d'encombrement).
-   - Les objets en céramique blanche et titane brossé de Dieter Rams chez Braun (précision rassurante, lisibilité immédiate).
-   - La photographie de nature morte lumineuse d'Irving Penn (sujet isolé avec netteté sur fond minéral clair).
+---
 
-2. **Parcours au scroll, étape par étape :**
-   - **Ouverture :** Le visiteur entre dans un espace architectural clair baigné par la lumière du matin à Bouaké, avec au premier plan une couronne d'émail ivoire en 3D temps réel qui s'assemble doucement avec sa base en titane pendant le premier scroll, accompagnée d'une promesse simple et rassurante.
-   - **Deuxième temps :** Le rythme ralentit sur une section éditoriale calme qui met des mots simples sur la peur d'aller chez le dentiste et montre comment le Dr Kouakou Hilaire travaille (explications claires avant chaque geste, anesthésie douce, stérilisation stricte, mutuelles acceptées).
-   - **Troisième temps (cœur de l'expérience) :** Le visiteur arrive devant le scanner clinique 3D interactif. Le scroll fait glisser un faisceau radiographique bleu cobalt à travers une dent anatomique 3D pour révéler la racine et l'implant interne avant de rendre l'émail pur. Le patient clique sur ce qui l'amène (douleur, détartrage, dent manquante, alignement, contrôle) pour voir la zone concernée en 3D et comprendre comment se passe la séance.
-   - **Quatrième temps :** Une traversée latérale présente les spécialités du cabinet en format galerie claire, où chaque soin peut être retenu en un clic.
-   - **Conclusion :** La page se pose sur le bureau de prise de rendez-vous et d'accès au Grand Bazar. Le motif choisi plus haut a déjà préparé le message WhatsApp destiné au secrétariat, accompagné des repères exacts (Immeuble Librairie de France, 2e étage) et d'une fiche mémo téléchargeable.
+## Les 8 axes du brief
 
-3. **Courbe d'énergie :**
-   - Ouverture maîtrisée et aérienne (énergie moyenne, mouvement lent et précis des plans).
-   - Calme plat volontaire à l'acte 2 (respiration éditoriale sans blocage d'écran pour faire baisser l'anxiété).
-   - Montée maximale d'intensité visuelle et interactive à l'acte 3 (le scanner 3D radiographique sous la main du visiteur).
-   - Glissement latéral fluide et posé à l'acte 4 (découverte tranquille des soins).
-   - Atterrissage stable et concret à l'acte 5 (aucun effet superflu au moment d'envoyer le message ou de noter l'adresse).
+1. **Vibe en 4 mots :** *Ivoire solaire, haute esthétique, douceur, éclat naturel.*
+   - Références sensibles : la pierre blonde et le silence d'une maison de beauté suisse, la lumière dorée du matin sur le lin et le travertin, le cadrage intime d'un portrait éditorial photographié au moyen format.
+2. **Parcours au défilement (6 actes) :**
+   - **Acte 1 (`#accueil`) :** Accueil multi-plans lumineux centré sur un sourire naturel radieux dans un salon en travertin chaud, typographie en profondeur et accès immédiat au rendez-vous ou à l'urgence.
+   - **Acte 2 (`#maison`) :** Respiration éditoriale calme sur l'écoute sans précipitation, l'anesthésie douce, la stérilisation et les mutuelles partenaires au 2e étage face au Grand Bazar.
+   - **Acte 3 (`#savoir-faire`) :** Séquence cinéma studio macro photoréaliste pilotée au scroll (`video[data-sc-scrub]`) révélant la finesse de la céramique nacre et de l'alignement cristallin sous une lumière dorée mouvante.
+   - **Acte 4 (`#soins`) :** Galerie lookbook horizontale grand format (`pan` + `tilt`) présentant les quatre piliers du cabinet (urgences, éclat & gencives, prothèses & implants, alignement & enfants) et les mutuelles.
+   - **Acte 5 (`#eclat` · Le Pic) :** *Le Rideau d'Éclat Ivoire* — scène plein cadre épinglée où le scroll (et le glissement tactile) déplace un voile optique champagne révélant l'harmonie naturelle d'un sourire soigné, relié aux intentions de soin du visiteur.
+   - **Acte 6 (`#rendez-vous`) :** Conciergerie WhatsApp épurée à sélection par pastilles tactiles et table d'orientation architecturale face au Grand Bazar.
+3. **Courbe d'énergie :** Lumineuse et enveloppante à l'ouverture (Acte 1) -> silence éditorial posé (Acte 2) -> immersion cinéma feutrée en clair-obscur expresso et or (Acte 3) -> promenade fluide en galerie claire (Acte 4) -> apogée émotionnel et interactif plein cadre (Acte 5, `3.8vh`) -> atterrissage limpide et chaleureux (Acte 6).
+4. **Courbe émotionnelle (Feeling Curve) et moment mémorable :**
+   - *Acte 1 :* **Désir et sérénité** — voir un visage radieux et paisible plutôt qu'un instrument médical rassure instantanément.
+   - *Acte 2 :* **Confiance humaine** — l'espace aéré et les mots simples lèvent la peur d'avoir mal ou de subir un tarif flou.
+   - *Acte 3 :* **Admiration tactile** — le film macro photoréaliste piloté à la molette montre le soin dentaire comme un travail d'orfèvre.
+   - *Acte 4 :* **Clarté tranquille** — chaque besoin familial trouve sa réponse visuelle sans surcharge.
+   - *Acte 5 (Le Pic) :* **Projection personnelle (« C'est le sourire que je veux retrouver »)** — dévoiler soi-même l'éclat sain et naturel du sourire au fil du scroll transforme l'hésitation en envie d'agir.
+   - *Acte 6 :* **Simplicité résolue** — deux clics suffisent pour ouvrir WhatsApp avec une demande déjà rédigée.
+5. **Mouvement signature :** *Le Rideau d'Éclat Ivoire* — voile optique biseauté en verre champagne piloté simultanément par `--sc-p` au défilement et au doigt/curseur sur un portrait studio parfaitement calé au pixel, couplé aux pastilles d'intention qui préparent la conciergerie WhatsApp.
+6. **Registre esthétique :** *Editorial Luxury / Maison d'Esthétique* — surfaces en ivoire chaud (`#FAF6F0`) et travertin (`#F1E9DD`), encre expresso (`#1D1611`), bronze champagne (`#7D5826`), typographie `Cormorant Garamond` + `Plus Jakarta Sans`, zéro boîte administrative.
+7. **Structure :** Scènes distinctes chorégraphiées (`pin > flow > scrub > pan > pin > flow`), avec un écrin sombre cinématique à l'Acte 3 qui fait ressortir la lumière ivoire du reste du parcours.
+8. **Médias :** 100 % générés en photographie studio photoréaliste cohérente (préambule moyen format Hasselblad unique), détourages RGBA alpha véritables et film macro H.264 dense-GOP (`-g 8` / `-g 4`) encodé pour le scrubbing fluide.
 
-4. **Courbe émotionnelle (Feeling Curve) et Moment Fort (The Peak) :**
-   - **Acte 1 — Apaisement :** La lumière du matin à travers des persiennes architecturales, les plans photographiques espacés et l'assemblage silencieux de la sculpture d'émail 3D remplacent la peur habituelle du cabinet dentaire par une impression de propreté et de calme.
-   - **Acte 2 — Confiance intime :** Une page calme qui ne bloque pas le défilement nomme franchement la crainte d'avoir mal et montre la salle de soin immaculée qui se dévoile sans artifice.
-   - **Acte 3 — Clarté et maîtrise (PEAK) :** Le faisceau du scanner 3D traverse l'émail sous la molette pour révéler l'anatomie interne puis refermer une dent saine, pendant que le visiteur sélectionne son propre besoin et voit la réponse s'adapter en direct.
-   - **Acte 4 — Assurance :** Le déplacement horizontal présente chaque famille de soins comme un choix clair et lisible, sans jargon médical intimidant.
-   - **Acte 5 — Décision sereine :** Tout s'arrête sur un bureau d'accueil concret où le message WhatsApp est déjà rédigé avec le motif choisi et où l'adresse face au Grand Bazar est limpide.
-
-   **Le Peak (en une phrase de visiteur) :**
-   > « En descendant sur la page, un scanner lumineux bleu traverse une vraie dent en 3D pour montrer la racine et l'implant à l'intérieur avant qu'elle redevienne toute blanche, et quand tu cliques sur ta douleur ça prépare ton message WhatsApp pour le cabinet. »
-   *(Situé dans l'Acte 3, qui reçoit le plus grand span de la page : `3.6vh`, précédé du calme non épinglé de l'Acte 2.)*
-
-   **La phrase test complétée (Tell-someone sentence) :**
-   > C'est le site où tu fais passer un scanner radiographique à travers une dent en 3D avec ta molette, tu touches l'endroit qui te gêne, et ton rendez-vous WhatsApp chez le dentiste en face du Grand Bazar est déjà prêt en bas de la page.
-
-5. **L'interaction signature (Signature Move) :**
-   **Le Scanner Radiographique 3D couplé au Dossier WhatsApp actif :** un modèle anatomique 3D temps réel (WebGL / shaders physiques céramique-ivoire et coupe radiographique cobalt) piloté par `--sc-p` au scroll et par cinq sélecteurs cliniques interactifs. Choisir un symptôme oriente la caméra 3D sur la zone anatomique exacte (couronne, collet gingival, racine/implant, arcade), affiche l'explication en français courant, et pré-remplit le message WhatsApp ainsi que le mémo de visite téléchargeable en fin de parcours.
-
-6. **Famille esthétique :**
-   **Premium-minimal lumineux à ancrage clinique** : fond albâtre minéral froid (`#F4F6F9`), surfaces en pierre claire (`#EAEFF5`), encre ardoise profonde (`#0E1724`), texte secondaire ardoise teintée (`#445366`), et un unique accent bleu cobalt chirurgical (`#1352B8` avec texte `#F8FAFF`), évitant le piège beige-laiton artisanal comme le violet néon IA.
-
-7. **Structure globale :**
-   **Scènes distinctes articulées autour d'un dossier patient continu** (grammaire *Atelier clinique à dossier actif*) : chaque acte change franchement de dispositif (`pin` multi-plans > `flow` calme > `pin` scanner 3D > `pan` galerie latérale > `flow` bureau de rendez-vous), sans chaîne vidéo fragile.
-
-8. **Ressources disponibles et action de conversion unique :**
-   - **Ressources :** Aucune photo fournie au départ (`KIE_AI_API_KEY` non configurée). Création d'un monde cohérent combinant rendu 3D temps réel (Three.js PBR avec posters haute définition exacts pour reduced-motion / sans WebGL) et photographie studio architecturale haute clé générée localement avec un préambule de style unique, y compris découpes alpha réelles pour le hero multi-plans.
-   - **Conviction unique à installer :** *« Au Cabinet Dentaire Ivoire à Bouaké, je serai écouté sans jugement, soigné en douceur dans une hygiène irréprochable, et je sais exactement comment m'y rendre dès aujourd'hui. »*
-   - **Action principale unique (libellé identique partout) :** `Prendre rendez-vous`
-
-## Silences intentionnels (Authored silence)
-
-- Aucun écran vide non intentionnel. L'Acte 2 constitue le temps calme volontaire (section `flow` sobre à respiration généreuse, sans animation agressive) placé juste avant le Peak de l'Acte 3 pour maximiser le contraste émotionnel. L'Acte 5 maintient l'intégralité de son contenu visible jusqu'au dernier pixel de défilement (`hold` complet en flux documentaire).
-
+## Calme maîtrisé et phrase de recommandation
+- **Phrase qu'un visiteur retient :** *« On dirait une grande maison d'esthétique : quand tu fais défiler la page, la lumière glisse sur la nacre et tu dévoiles toi-même le sourire avant d'envoyer ton rendez-vous WhatsApp face au Grand Bazar. »*
+- **Où le calme est préservé :** Acte 2 (lecture éditoriale sans aucun verrouillage du scroll) et Acte 6 (conciergerie posée sans animation parasite). Un seul libellé d'action principal partout : `Prendre rendez-vous`.
