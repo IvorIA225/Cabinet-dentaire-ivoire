@@ -1,0 +1,14 @@
+# Dependencies
+**/node_modules/
+
+# Local verification screenshots & lab contact sheets (~380 MB)
+scrollcraft/lab/
+
+# Platform & editor files
+.vercel/
+.netlify/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*

@@ -1,0 +1,1190 @@
+/* ============================================================================
+   styles.css — Cabinet Dentaire Ivoire (Bouaké)
+   Grammar: Clinical Atelier & Active Dossier
+   Palette: Cool Mineral Alabaster + Deep Slate Ink + Surgical Cobalt Accent
+   ========================================================================== */
+
+:root {
+  /* Six core tokens overriding scrollcraft.css floor */
+  --sc-canvas:      #f4f6f9;
+  --sc-surface:     #e8eef5;
+  --sc-ink:         #0e1724;
+  --sc-ink-soft:    #3c4b5e;
+  --sc-accent:      #1352b8;
+  --sc-accent-ink:  #f8faff;
+
+  --sc-font-display: "Outfit", system-ui, -apple-system, sans-serif;
+  --sc-font-text:    "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --sc-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Light-canvas inversions per worlds.md ("If the canvas is light") */
+  --sc-hairline:        color-mix(in oklab, var(--sc-ink) 11%, transparent);
+  --sc-hairline-strong: color-mix(in oklab, var(--sc-ink) 20%, transparent);
+  --sc-shadow-color:    215 36% 14%;
+  --sc-e1: 0 1px 2px hsl(var(--sc-shadow-color) / 0.06),
+           0 3px 8px -2px hsl(var(--sc-shadow-color) / 0.08);
+  --sc-e2: 0 3px 6px hsl(var(--sc-shadow-color) / 0.07),
+           0 12px 26px -6px hsl(var(--sc-shadow-color) / 0.11);
+  --sc-e3: 0 6px 14px hsl(var(--sc-shadow-color) / 0.08),
+           0 24px 48px -12px hsl(var(--sc-shadow-color) / 0.15);
+  --sc-edge: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+
+  --surface-card: #ffffff;
+  --cobalt-soft:  color-mix(in oklab, var(--sc-accent) 9%, #ffffff);
+  --cobalt-line:  color-mix(in oklab, var(--sc-accent) 24%, transparent);
+}
+
+/* Subtle fine film grain calibrated for high-key mineral canvas */
+.sc-grain { opacity: 0.026; mix-blend-mode: multiply; }
+
+/* Skip link for keyboard accessibility */
+.skip-link {
+  position: fixed;
+  top: var(--sc-3);
+  left: var(--sc-gutter);
+  z-index: 120;
+  padding: var(--sc-2) var(--sc-4);
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  border-radius: var(--sc-r-sm);
+  text-decoration: none;
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform var(--sc-d-fast) var(--sc-ease-out);
+}
+.skip-link:focus,
+.skip-link:focus-visible { transform: translateY(0); }
+
+/* ============================================================================
+   PERSISTENT CLINICAL STATUS & WAYPOINT BAR
+   ========================================================================== */
+.clinic-bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--sc-z-chrome);
+  background: color-mix(in oklab, var(--sc-canvas) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--sc-hairline);
+}
+
+.clinic-bar__inner {
+  max-width: var(--sc-maxw);
+  margin-inline: auto;
+  padding: 0.72rem var(--sc-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-4);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--sc-ink);
+}
+.brand-mark__icon {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: var(--sc-r-sm);
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--sc-e1);
+}
+.brand-mark__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.12;
+}
+.brand-mark__name {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: -0.015em;
+}
+.brand-mark__city {
+  font-size: 0.74rem;
+  color: var(--sc-ink-soft);
+}
+
+.clinic-bar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-5);
+}
+.clinic-bar__link {
+  font-size: var(--sc-t-sm);
+  font-weight: 500;
+  color: var(--sc-ink-soft);
+  text-decoration: none;
+  transition: color var(--sc-d-fast) var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .clinic-bar__link:hover { color: var(--sc-ink); }
+}
+
+.clinic-bar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-4);
+}
+
+.clinic-hours-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: var(--sc-ink-soft);
+  padding: 0.32rem 0.68rem;
+  border-radius: var(--sc-r-sm);
+  background: color-mix(in oklab, var(--surface-card) 75%, transparent);
+  border: 1px solid var(--sc-hairline);
+  white-space: nowrap;
+}
+.clinic-hours-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #14804a;
+  flex: none;
+}
+.clinic-hours-badge[data-open="false"] .clinic-hours-badge__dot {
+  background: #64748b;
+}
+
+/* ============================================================================
+   UNIFIED BUTTON SYSTEM (One primary label everywhere: "Prendre rendez-vous")
+   ========================================================================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.74rem 1.28rem;
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--sc-r-sm);
+  box-shadow: var(--sc-e1);
+  cursor: pointer;
+  transition: transform 140ms var(--sc-ease-out), background-color 140ms var(--sc-ease-out), box-shadow 140ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: #0f449c;
+    box-shadow: var(--sc-e2);
+  }
+}
+.btn-primary:active { transform: translateY(1px) scale(0.98); }
+.btn-primary--sm { padding: 0.56rem 1rem; font-size: 0.84rem; }
+.btn-primary--lg { padding: 0.92rem 1.55rem; font-size: 0.98rem; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1.12rem;
+  background: var(--surface-card);
+  color: var(--sc-ink);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-sm);
+  box-shadow: var(--sc-edge), var(--sc-e1);
+  cursor: pointer;
+  transition: transform 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out), background-color 140ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover {
+    border-color: var(--sc-accent);
+    background: var(--cobalt-soft);
+  }
+}
+.btn-secondary:active { transform: translateY(1px) scale(0.98); }
+
+/* ============================================================================
+   ACT 1: LAYERED ARCHITECTURAL & 3D ENAMEL HERO
+   Planes:
+     1. Far architectural plate (.hero-plane--bg)
+     2. Midground light & architectural frame (.hero-plane--mid)
+     3. Monumental background mark + Semantic copy (.hero-watermark / .hero-copy)
+     4. Real-time 3D Enamel & Titanium Assembly (#hero-3d-stage)
+     5. Near foreground alpha travertine edge (.hero-plane--fg) + floor fade
+   ========================================================================== */
+.hero-stage {
+  background: var(--sc-canvas);
+}
+
+.hero-plane {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Plane 1: Far environment plate */
+.hero-plane--bg {
+  inset: -12% -4%;
+  z-index: 1;
+}
+.hero-plane--bg img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 68% center;
+  transform: translate3d(calc(var(--hero-px, 0) * -8px), calc(var(--hero-py, 0) * -6px), 0);
+}
+
+/* Plane 2: Midground raking morning light & architectural depth lines */
+.hero-plane--mid {
+  inset: -8% 0;
+  z-index: 2;
+  background:
+    linear-gradient(112deg,
+      rgba(244, 246, 249, 0.72) 0%,
+      rgba(244, 246, 249, 0.25) 46%,
+      rgba(255, 252, 244, 0.34) 68%,
+      transparent 88%);
+}
+.hero-mid-frame {
+  position: absolute;
+  right: clamp(6%, 11vw, 14%);
+  top: 13%;
+  bottom: 12%;
+  width: min(38vw, 34rem);
+  border: 1px solid rgba(14, 23, 36, 0.08);
+  border-radius: var(--sc-r-lg);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.38), rgba(232, 238, 245, 0.12));
+  box-shadow: var(--sc-edge);
+}
+
+/* Architectural depth word behind the 3D focal object (occluded by Plane 4!) */
+.hero-depth-word {
+  position: absolute;
+  z-index: 3;
+  right: clamp(3%, 7vw, 10%);
+  top: 20%;
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: clamp(5rem, 13vw, 12.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  color: color-mix(in oklab, var(--sc-ink) 7%, transparent);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Sibling scrim protecting left-side copy (NEVER a child of data-sc-cue!) */
+.hero-copy-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    96deg,
+    rgba(244, 246, 249, 0.97) 0%,
+    rgba(244, 246, 249, 0.95) 38%,
+    rgba(244, 246, 249, 0.72) 54%,
+    rgba(244, 246, 249, 0.0) 68%
+  );
+}
+
+/* Plane 4: Focal 3D Ivory Molar & Titanium Implant Assembly */
+.hero-3d-wrap {
+  position: absolute;
+  z-index: 6;
+  right: clamp(2%, 7vw, 9%);
+  top: 11%;
+  bottom: 9%;
+  width: min(44vw, 38rem);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.hero-3d-wrap canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.webgl-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  transition: opacity 260ms var(--sc-ease-out);
+}
+.is-webgl-live .webgl-poster { opacity: 0; }
+.is-fallback canvas { display: none; }
+.is-fallback .webgl-poster { opacity: 1; }
+
+.hero-contact-shadow {
+  position: absolute;
+  bottom: 11%;
+  left: 50%;
+  width: 52%;
+  height: 28px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(14, 23, 36, 0.16), transparent 78%);
+  pointer-events: none;
+}
+
+/* Plane 5: Near foreground genuine alpha travertine architectural column edge */
+.hero-plane--fg {
+  right: -2%;
+  top: -6%;
+  bottom: -10%;
+  width: min(24vw, 21rem);
+  z-index: 8;
+}
+.hero-plane--fg img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: left center;
+  transform: translate3d(calc(var(--hero-px, 0) * 11px), calc(var(--hero-py, 0) * 7px), 0);
+}
+
+/* Section floor gradient hiding plane bottom edges cleanly (devices.md §6) */
+.hero-floor-fade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 180px;
+  z-index: 9;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--sc-canvas) 0%, rgba(244, 246, 249, 0.76) 42%, transparent 100%);
+}
+
+/* Plane 3 (Interactive Foreground Copy Layer, z-index 20 via .sc-copy) */
+.hero-copy-block {
+  position: absolute;
+  z-index: var(--sc-z-copy);
+  left: var(--sc-gutter);
+  bottom: clamp(3.4rem, 13vh, 8.5rem);
+  width: min(35rem, 50vw);
+}
+
+.hero-title {
+  font-size: clamp(2.45rem, 1.75rem + 3.1vw, 4.35rem);
+  line-height: 1.01;
+  letter-spacing: -0.032em;
+  color: var(--sc-ink);
+  max-width: 14ch;
+}
+
+.hero-sub {
+  margin-top: var(--sc-4);
+  font-size: var(--sc-t-base);
+  line-height: 1.58;
+  color: var(--sc-ink-soft);
+  max-width: 44ch;
+}
+
+.hero-actions {
+  margin-top: var(--sc-6);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sc-3);
+}
+
+.hero-beat2-card {
+  padding: var(--sc-5) var(--sc-6);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-md);
+  box-shadow: var(--sc-edge), var(--sc-e2);
+  max-width: 31rem;
+}
+.hero-beat2-title {
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-xl);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--sc-ink);
+  margin: 0;
+}
+.hero-beat2-body {
+  margin: var(--sc-3) 0 0 0;
+  color: var(--sc-ink-soft);
+  font-size: var(--sc-t-base);
+  line-height: 1.58;
+}
+
+/* ============================================================================
+   ACT 2: QUIET INTIMACY & REASSURANCE (Unpinned Flow + Reveal)
+   Reduced top padding right after pinned Act 1 per devices.md §8!
+   ========================================================================== */
+.reassurance-section {
+  padding-top: clamp(2.5rem, 5vw, 5rem);
+  padding-bottom: clamp(4.5rem, 8vw, 8.5rem);
+}
+
+.reassurance-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(2rem, 5vw, 5.5rem);
+  align-items: center;
+}
+
+.reassurance-prose h2 {
+  color: var(--sc-ink);
+  max-width: 16ch;
+}
+
+.reassurance-prose p {
+  font-size: var(--sc-t-base);
+  line-height: 1.68;
+  color: var(--sc-ink-soft);
+  max-width: 56ch;
+}
+
+.reassurance-facts {
+  margin-top: var(--sc-6);
+  padding-top: var(--sc-5);
+  border-top: 1px solid var(--sc-hairline);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sc-5);
+}
+
+.fact-item__title {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--sc-ink);
+  margin: 0;
+}
+.fact-item__desc {
+  margin: var(--sc-1) 0 0 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.52;
+  color: var(--sc-ink-soft);
+}
+
+.reassurance-figure {
+  margin: 0;
+}
+.reassurance-figure__frame {
+  border-radius: var(--sc-r-lg);
+  overflow: hidden;
+  box-shadow: var(--sc-e2);
+  border: 1px solid var(--sc-hairline);
+  background: var(--sc-surface);
+}
+.reassurance-figure__frame img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+.reassurance-figure figcaption {
+  margin-top: var(--sc-3);
+  font-size: var(--sc-t-xs);
+  color: var(--sc-ink-soft);
+}
+
+/* ============================================================================
+   ACT 3: THE PEAK & SIGNATURE MOVE — 3D RADIOSCOPY SCANNER
+   Largest scroll span on the page (3.6vh).
+   ========================================================================== */
+.scanner-stage {
+  display: flex;
+  align-items: center;
+  padding-top: 3.6rem;
+}
+
+.scanner-shell {
+  width: 100%;
+  max-width: var(--sc-maxw);
+  margin-inline: auto;
+  padding-inline: var(--sc-gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: clamp(1.5rem, 3.8vw, 4rem);
+  align-items: center;
+}
+
+/* Left: Clinical Radioscopy 3D Viewport Chamber */
+.scanner-viewport {
+  position: relative;
+  height: min(68svh, 36rem);
+  border-radius: var(--sc-r-lg);
+  background:
+    radial-gradient(85% 75% at 50% 46%, #ffffff 0%, #eaf0f8 62%, #dde7f4 100%);
+  border: 1px solid var(--sc-hairline-strong);
+  box-shadow: var(--sc-edge), var(--sc-e3);
+  overflow: hidden;
+}
+
+/* Subtle calibrated clinical grid reticle inside scanner chamber */
+.scanner-viewport::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(19, 82, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(19, 82, 184, 0.055) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.scanner-viewport canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.scanner-hud-top,
+.scanner-hud-bottom {
+  position: absolute;
+  inset-inline: var(--sc-4);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-3);
+  pointer-events: none;
+}
+.scanner-hud-top { top: var(--sc-4); }
+.scanner-hud-bottom { bottom: var(--sc-4); }
+
+.scanner-readout {
+  font-family: var(--sc-font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--sc-ink);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.28rem 0.62rem;
+  border-radius: var(--sc-r-sm);
+  border: 1px solid var(--sc-hairline);
+}
+
+/* Scroll-synced phase note inside scanner bottom HUD */
+.scanner-phase-cue {
+  position: absolute;
+  left: var(--sc-4);
+  bottom: var(--sc-4);
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--sc-ink);
+  padding: 0.34rem 0.7rem;
+  border-radius: var(--sc-r-sm);
+  border: 1px solid var(--sc-hairline);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+/* Right: Interactive Need Selector & Plain-French Diagnostic Card */
+.scanner-panel {
+  background: var(--surface-card);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-lg);
+  padding: clamp(1.25rem, 2.5vw, 2.1rem);
+  box-shadow: var(--sc-edge), var(--sc-e2);
+  color: var(--sc-ink);
+}
+
+.scanner-panel__eyebrow {
+  display: inline-block;
+  margin-bottom: var(--sc-2);
+  color: var(--sc-accent);
+  font-weight: 600;
+}
+
+.scanner-panel h2 {
+  font-size: clamp(1.65rem, 1.3rem + 1.5vw, 2.35rem);
+  line-height: 1.08;
+  color: var(--sc-ink);
+}
+
+.scanner-panel__intro {
+  margin-top: var(--sc-2);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+  line-height: 1.5;
+}
+
+.zone-tabs {
+  margin-top: var(--sc-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.zone-tab {
+  padding: 0.48rem 0.82rem;
+  border-radius: var(--sc-r-sm);
+  border: 1px solid var(--sc-hairline-strong);
+  background: var(--sc-canvas);
+  color: var(--sc-ink);
+  font-size: 0.83rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 140ms var(--sc-ease-out), color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out), transform 120ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .zone-tab:hover {
+    border-color: var(--sc-accent);
+    background: var(--cobalt-soft);
+  }
+}
+.zone-tab:active { transform: scale(0.98); }
+.zone-tab[aria-selected="true"] {
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  border-color: var(--sc-accent);
+}
+
+.zone-detail {
+  margin-top: var(--sc-4);
+  padding-top: var(--sc-4);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+.zone-detail__title {
+  font-family: var(--sc-font-display);
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--sc-ink);
+  margin: 0;
+}
+
+.zone-detail__body {
+  margin: var(--sc-2) 0 0 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.6;
+  color: var(--sc-ink-soft);
+}
+
+.zone-detail__meta {
+  margin-top: var(--sc-3);
+  padding: 0.55rem 0.78rem;
+  background: var(--cobalt-soft);
+  border: 1px solid var(--cobalt-line);
+  border-radius: var(--sc-r-sm);
+  font-size: 0.82rem;
+  color: var(--sc-ink);
+}
+
+.zone-detail__footer {
+  margin-top: var(--sc-4);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-3);
+}
+
+.dossier-sync-note {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--sc-accent);
+}
+
+/* ============================================================================
+   ACT 4: LATERAL CARE GALLERY RAIL (pan + tilt)
+   ========================================================================== */
+.care-pan-stage {
+  display: flex;
+  align-items: center;
+  padding-top: 3.2rem;
+}
+
+.care-rail {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.25rem, 2.2vw, 2rem);
+  padding-inline: var(--sc-gutter);
+  width: max-content;
+}
+
+.care-rail__lead {
+  width: clamp(18rem, 24vw, 23rem);
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: var(--sc-3);
+}
+.care-rail__lead h2 {
+  color: var(--sc-ink);
+}
+.care-rail__lead p {
+  margin-top: var(--sc-3);
+  color: var(--sc-ink-soft);
+}
+
+.care-card {
+  width: clamp(17.5rem, 22vw, 21.5rem);
+  flex: none;
+  background: var(--surface-card);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-md);
+  padding: var(--sc-4);
+  box-shadow: var(--sc-edge), var(--sc-e1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.care-card__media {
+  border-radius: var(--sc-r-sm);
+  overflow: hidden;
+  background: var(--sc-surface);
+  aspect-ratio: 4 / 3;
+}
+.care-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.care-card h3 {
+  margin: var(--sc-4) 0 0 0;
+  font-family: var(--sc-font-display);
+  font-size: 1.32rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--sc-ink);
+}
+
+.care-card p {
+  margin: var(--sc-2) 0 0 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.56;
+  color: var(--sc-ink-soft);
+}
+
+.care-card__pick {
+  margin-top: var(--sc-4);
+  align-self: flex-start;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sc-accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.24em;
+}
+
+.care-card--close {
+  background: var(--cobalt-soft);
+  border-color: var(--cobalt-line);
+  justify-content: center;
+  padding: var(--sc-6);
+}
+
+/* Staggered arrival settle driven from --sc-p (devices.md §3) */
+@media (prefers-reduced-motion: no-preference) {
+  .care-rail > .care-card {
+    opacity: clamp(0.65, calc(0.65 + var(--sc-p, 0) * 0.8), 1);
+  }
+}
+
+/* ============================================================================
+   ACT 5: ACTIVE CONSULTATION & GRAND BAZAR ACCESS DESK (Resolved Close)
+   ========================================================================== */
+.desk-section {
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--sc-hairline);
+  background: var(--sc-canvas);
+}
+
+.desk-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  gap: clamp(1.75rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.dossier-box,
+.location-box {
+  background: var(--surface-card);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-lg);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  box-shadow: var(--sc-edge), var(--sc-e2);
+}
+
+.dossier-box h2,
+.location-box h2 {
+  font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.2rem);
+  color: var(--sc-ink);
+}
+
+.dossier-lead {
+  margin-top: var(--sc-2);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+}
+
+.dossier-form {
+  margin-top: var(--sc-5);
+  display: grid;
+  gap: var(--sc-4);
+}
+
+.field-group {
+  display: grid;
+  gap: 0.42rem;
+}
+.field-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--sc-ink);
+}
+
+.field-input,
+.field-select {
+  width: 100%;
+  padding: 0.68rem 0.85rem;
+  border-radius: var(--sc-r-sm);
+  border: 1px solid var(--sc-hairline-strong);
+  background: var(--sc-canvas);
+  color: var(--sc-ink);
+  font-size: var(--sc-t-sm);
+}
+.field-input:focus,
+.field-select:focus {
+  border-color: var(--sc-accent);
+  background: #ffffff;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sc-3);
+}
+
+.wa-preview {
+  padding: var(--sc-3) var(--sc-4);
+  border-radius: var(--sc-r-sm);
+  background: var(--cobalt-soft);
+  border: 1px solid var(--cobalt-line);
+}
+.wa-preview__label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--sc-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.wa-preview__text {
+  margin: 0.35rem 0 0 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--sc-ink);
+}
+
+.dossier-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-3);
+  align-items: center;
+}
+
+.dossier-utilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-4);
+  padding-top: var(--sc-2);
+}
+
+.text-action-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--sc-ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  .text-action-btn:hover { color: var(--sc-accent); }
+}
+
+.dossier-feedback {
+  margin: 0;
+  padding: 0.68rem 0.9rem;
+  border-radius: var(--sc-r-sm);
+  background: #ecfdf3;
+  border: 1px solid #abefc6;
+  color: #084c2e;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+.dossier-feedback[hidden] { display: none; }
+
+/* Landmark & Map Column */
+.landmark-list {
+  margin: var(--sc-4) 0 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--sc-3);
+}
+.landmark-list li {
+  padding-bottom: var(--sc-3);
+  border-bottom: 1px solid var(--sc-hairline);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+}
+.landmark-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.landmark-list__key {
+  display: block;
+  font-weight: 600;
+  color: var(--sc-ink);
+  margin-bottom: 0.15rem;
+}
+
+.direct-phones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-2);
+  margin-top: 0.35rem;
+}
+.phone-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.36rem 0.68rem;
+  border-radius: var(--sc-r-sm);
+  background: var(--sc-canvas);
+  border: 1px solid var(--sc-hairline-strong);
+  color: var(--sc-ink);
+  font-weight: 600;
+  font-size: 0.84rem;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .phone-pill:hover { border-color: var(--sc-accent); color: var(--sc-accent); }
+}
+
+.bouake-map-card {
+  margin-top: var(--sc-4);
+  border-radius: var(--sc-r-md);
+  overflow: hidden;
+  border: 1px solid var(--sc-hairline-strong);
+  background: #eef3f9;
+}
+.bouake-map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.bouake-map-bar {
+  padding: 0.75rem var(--sc-4);
+  background: var(--surface-card);
+  border-top: 1px solid var(--sc-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-3);
+  font-size: 0.82rem;
+  color: var(--sc-ink-soft);
+}
+
+/* Site Footer integrated inside Act 5 close so the page ends cleanly resolved */
+.clinic-colophon {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: var(--sc-5);
+  border-top: 1px solid var(--sc-hairline);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-4);
+  font-size: var(--sc-t-xs);
+  color: var(--sc-ink-soft);
+}
+
+/* ============================================================================
+   MOBILE & COMPACT PHONE ART DIRECTION (860px, 390px, and 360x640)
+   Separate composition per hero-depth.md & approved-collection.md §6
+   ========================================================================== */
+@media (max-width: 960px) {
+  .clinic-bar__nav { display: none; }
+}
+
+@media (max-width: 860px) {
+  .clinic-hours-badge { display: none; }
+  .clinic-bar__inner { padding-block: 0.48rem; gap: 0.5rem; }
+  .brand-mark { gap: 0.45rem; min-width: 0; }
+  .brand-mark__icon { width: 26px; height: 26px; }
+  .brand-mark__name { font-size: 0.86rem; white-space: nowrap; }
+  .brand-mark__city { display: none; }
+  .clinic-bar .btn-primary--sm { padding: 0.46rem 0.76rem; font-size: 0.77rem; }
+
+  /* Recompose Hero: copy cleanly in top-upper-left clear sky/wall, 3D tooth centered below */
+  .hero-copy-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(244, 246, 249, 0.98) 0%,
+      rgba(244, 246, 249, 0.96) 46%,
+      rgba(244, 246, 249, 0.74) 64%,
+      rgba(244, 246, 249, 0.16) 100%
+    );
+  }
+  .hero-depth-word,
+  .hero-mid-frame { display: none; }
+
+  .hero-copy-block {
+    top: 3.85rem;
+    bottom: auto;
+    left: var(--sc-gutter);
+    right: var(--sc-gutter);
+    width: auto;
+  }
+  .hero-title {
+    font-size: clamp(1.72rem, 5.9vw, 2.3rem);
+    line-height: 1.04;
+    max-width: 16ch;
+  }
+  .hero-sub {
+    margin-top: 0.45rem;
+    font-size: 0.9rem;
+    line-height: 1.46;
+  }
+  .hero-actions {
+    margin-top: 0.65rem;
+    gap: 0.45rem;
+  }
+  .hero-actions .btn-primary--lg,
+  .hero-actions .btn-secondary {
+    padding: 0.62rem 0.95rem;
+    font-size: 0.83rem;
+  }
+  .hero-beat2-card {
+    padding: 0.9rem 1rem;
+  }
+  .hero-beat2-title { font-size: 1.16rem; }
+  .hero-beat2-body { font-size: 0.86rem; line-height: 1.48; margin-top: 0.35rem; }
+
+  .hero-3d-wrap {
+    left: 6%;
+    right: 6%;
+    top: auto;
+    bottom: 1.5%;
+    width: auto;
+    height: 44svh;
+  }
+  .hero-plane--fg {
+    width: 28vw;
+    opacity: 0.5;
+  }
+
+  /* Act 2 stack */
+  .reassurance-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sc-6);
+  }
+  .reassurance-facts {
+    grid-template-columns: 1fr;
+    gap: var(--sc-4);
+  }
+
+  /* Act 3 Peak: vertical stack fitting 100% inside 100svh with zero top/bottom clip */
+  .scanner-stage {
+    align-items: flex-start;
+    padding-top: 3.7rem;
+    padding-bottom: 0.6rem;
+  }
+  .scanner-shell {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+  .scanner-viewport {
+    height: 31svh;
+    min-height: 175px;
+    max-height: 255px;
+  }
+  .scanner-hud-top { top: 0.45rem; inset-inline: 0.55rem; }
+  #scanner-zone-label { display: none; }
+  .scanner-readout { font-size: 0.68rem; padding: 0.2rem 0.5rem; }
+  .scanner-phase-cue { bottom: 0.45rem; left: 0.55rem; font-size: 0.68rem; padding: 0.2rem 0.48rem; }
+  .scanner-panel {
+    padding: 0.82rem 0.95rem;
+  }
+  .scanner-panel__eyebrow { display: none; }
+  .scanner-panel h2 { font-size: 1.18rem; line-height: 1.12; }
+  .scanner-panel__intro { display: none; }
+  .zone-tabs {
+    margin-top: 0.48rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+    scrollbar-width: none;
+  }
+  .zone-tabs::-webkit-scrollbar { display: none; }
+  .zone-tab { flex: none; padding: 0.36rem 0.64rem; font-size: 0.76rem; }
+  .zone-detail { margin-top: 0.48rem; padding-top: 0.48rem; }
+  .zone-detail__title { font-size: 0.96rem; }
+  .zone-detail__body { font-size: 0.8rem; line-height: 1.42; margin-top: 0.24rem; }
+  .zone-detail__meta { margin-top: 0.4rem; padding: 0.34rem 0.55rem; font-size: 0.74rem; }
+  .zone-detail__footer { margin-top: 0.48rem; gap: 0.4rem; }
+  .dossier-sync-note { font-size: 0.74rem; }
+
+  /* Act 4 Pan cards */
+  .care-card { width: min(78vw, 19.5rem); }
+  .care-rail__lead { width: min(82vw, 20rem); }
+
+  /* Act 5 Desk */
+  .desk-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+}
+
+/* Compact 360x640 viewport tuning */
+@media (max-height: 700px) and (max-width: 860px) {
+  .hero-copy-block { top: 3.6rem; }
+  .hero-title { font-size: 1.54rem; }
+  .hero-sub { font-size: 0.83rem; line-height: 1.4; margin-top: 0.35rem; }
+  .hero-actions { margin-top: 0.5rem; }
+  .hero-actions .btn-primary--lg,
+  .hero-actions .btn-secondary { padding: 0.52rem 0.82rem; font-size: 0.78rem; }
+  .hero-3d-wrap { height: 41svh; bottom: 0.5%; }
+  .scanner-stage { padding-top: 3.5rem; }
+  .scanner-viewport { height: 27svh; min-height: 156px; max-height: 178px; }
+  .zone-detail__meta,
+  .dossier-sync-note { display: none; }
+}
+
+@media (max-width: 385px) {
+  .clinic-bar__inner { padding-inline: 0.85rem; gap: 0.45rem; }
+  .brand-mark { gap: 0.38rem; }
+  .brand-mark__icon { width: 23px; height: 23px; }
+  .brand-mark__name { font-size: 0.79rem; }
+  .clinic-bar .btn-primary--sm { padding: 0.4rem 0.62rem; font-size: 0.73rem; }
+}
+
+/* Reduced motion layout refinements */
+@media (prefers-reduced-motion: reduce) {
+  .hero-plane--bg img,
+  .hero-plane--fg img { transform: none !important; }
+  .care-rail { padding-block: var(--sc-4); }
+}
+
